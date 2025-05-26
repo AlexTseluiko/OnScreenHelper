@@ -1,0 +1,489 @@
+.profilePage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  min-height: 100vh;
+}
+
+// Welcome Card
+.welcomeCard {
+  background: linear-gradient(135deg, var(--primary-light), white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  margin: var(--spacing-2xl) auto;
+  
+  h1 {
+    margin: var(--spacing-lg) 0;
+    color: var(--gray-800);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  p {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+  }
+}
+
+.welcomeIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.benefits {
+  display: grid;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-2xl) 0;
+  text-align: left;
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  
+  h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--gray-800);
+    font-size: 1.1rem;
+  }
+  
+  p {
+    margin: 0;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+  }
+}
+
+.benefitIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.createButton {
+  margin-top: var(--spacing-xl);
+  font-size: 1.1rem;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+}
+
+// Profile Header
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.basicInfo {
+  h1 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--gray-800);
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+}
+
+.ageGender {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.profileDate {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.profileActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.deleteButton {
+  color: var(--error);
+  
+  &:hover {
+    background: rgba(239, 68, 68, 0.1);
+  }
+}
+
+// Recommendations Section
+.recommendationsSection {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.sectionHeader {
+  margin-bottom: var(--spacing-xl);
+  
+  h2 {
+    color: var(--gray-800);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-sm) 0;
+  }
+  
+  p {
+    color: var(--gray-600);
+    margin: 0;
+  }
+}
+
+.noRecommendations {
+  background: linear-gradient(135deg, var(--success-light), white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  
+  h3 {
+    color: var(--gray-800);
+    margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+  }
+  
+  p {
+    color: var(--gray-600);
+    margin: 0;
+  }
+}
+
+.noRecommendationsIcon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.recommendationsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.recommendationCard {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border-left: 4px solid var(--gray-300);
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &.висока {
+    border-left-color: var(--error);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), white);
+  }
+  
+  &.середня {
+    border-left-color: var(--warning);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), white);
+  }
+  
+  &.низька {
+    border-left-color: var(--success);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), white);
+  }
+}
+
+.recommendationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.priorityBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background: var(--gray-100);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.priorityIcon {
+  font-size: 1rem;
+}
+
+.overdueFlag {
+  background: var(--error);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.recommendationTitle {
+  color: var(--gray-800);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.recommendationCategory {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.recommendationReason {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+.recommendationFooter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--gray-200);
+}
+
+.nextDate, .frequency {
+  .label {
+    display: block;
+    color: var(--gray-500);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .date, .value {
+    color: var(--gray-800);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.riskScore {
+  .riskBar {
+    width: 100%;
+    height: 6px;
+    background: var(--gray-200);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .riskFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), var(--warning), var(--error));
+    transition: width var(--transition-normal) ease-out;
+  }
+  
+  .riskText {
+    color: var(--gray-600);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+}
+
+// Medical History Section
+.medicalHistorySection, .preferencesSection {
+  margin-bottom: var(--spacing-2xl);
+  
+  h2 {
+    color: var(--gray-800);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-xl) 0;
+  }
+}
+
+.historyGrid, .preferencesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.historyCard, .preferenceCard {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  
+  h3 {
+    color: var(--gray-800);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-md) 0;
+  }
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.tag {
+  background: var(--primary-color);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.familyList {
+  space-y: var(--spacing-sm);
+}
+
+.familyItem {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 0.9rem;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  strong {
+    color: var(--gray-800);
+    text-transform: capitalize;
+  }
+}
+
+.checkupList {
+  space-y: var(--spacing-sm);
+}
+
+.checkupItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--gray-100);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.checkupDate {
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.checkupResult {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.categoryList {
+  color: var(--gray-600);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .profilePage {
+    padding: var(--spacing-lg);
+  }
+  
+  .profileHeader {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    text-align: center;
+  }
+  
+  .profileInfo {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .recommendationsList {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommendationFooter {
+    grid-template-columns: 1fr;
+  }
+  
+  .historyGrid, .preferencesGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefits {
+    gap: var(--spacing-md);
+  }
+  
+  .benefit {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .welcomeCard {
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-xl);
+    
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recommendationCard, .historyCard, .preferenceCard {
+  animation: fadeInUp var(--transition-normal) ease-out;
+}
+
+.recommendationsSection, .medicalHistorySection, .preferencesSection {
+  animation: fadeInUp var(--transition-normal) ease-out;
+} 

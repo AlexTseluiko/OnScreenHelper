@@ -1,0 +1,248 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: var(--spacing-lg);
+}
+
+.hero {
+  text-align: center;
+  padding: var(--spacing-2xl) 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-lg) 0;
+  background: linear-gradient(135deg, #4285f4, #1a73e8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--gray-600);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin: var(--spacing-2xl) 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature {
+  background: white;
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+    color: var(--gray-900);
+  }
+
+  p {
+    color: var(--gray-600);
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.featureIcon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  display: block;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+  margin: var(--spacing-2xl) 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.infoCard {
+  background: white;
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border-left: 4px solid var(--primary-color);
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--gray-900);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  p {
+    color: var(--gray-600);
+    margin: 0 0 var(--spacing-md) 0;
+    line-height: 1.5;
+  }
+}
+
+.emergencyNumbers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.emergencyNumber {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--error-light);
+  border: 2px solid var(--error-color);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--error-dark);
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--error-color);
+    color: white;
+    transform: translateX(5px);
+  }
+}
+
+.numberIcon {
+  font-size: 1.5rem;
+}
+
+.tipsList {
+  margin: 0;
+  padding-left: var(--spacing-lg);
+  color: var(--gray-700);
+
+  li {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.helpNumbers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.helpNumber {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    strong {
+      color: var(--gray-900);
+      font-size: 0.875rem;
+    }
+
+    span {
+      color: var(--primary-color);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.helpIcon {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  text-align: center;
+}
+
+// Адаптивність
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-md);
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .feature {
+    padding: var(--spacing-lg);
+  }
+
+  .info {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .infoCard {
+    padding: var(--spacing-lg);
+  }
+
+  .emergencyNumber {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+
+  .helpNumber {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+} 

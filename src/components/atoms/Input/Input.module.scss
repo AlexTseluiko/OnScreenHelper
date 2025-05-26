@@ -1,0 +1,145 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  
+  .required {
+    color: var(--error);
+    margin-left: var(--spacing-xs);
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: white;
+  color: var(--gray-900);
+  transition: all var(--transition-fast);
+  
+  &::placeholder {
+    color: var(--gray-400);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+  
+  &:disabled {
+    background-color: var(--gray-50);
+    color: var(--gray-500);
+    cursor: not-allowed;
+  }
+  
+  // Отступы для иконок
+  .inputWrapper:has(.leftIcon) & {
+    padding-left: 2.5rem;
+  }
+  
+  .inputWrapper:has(.rightIcon) & {
+    padding-right: 2.5rem;
+  }
+}
+
+// Варианты дизайна
+.default .input {
+  border: 1.5px solid var(--gray-300);
+  background-color: white;
+}
+
+.filled .input {
+  border: 1.5px solid transparent;
+  background-color: var(--gray-100);
+  
+  &:focus {
+    background-color: white;
+    border-color: var(--primary-color);
+  }
+}
+
+.outline .input {
+  border: 2px solid var(--gray-300);
+  background-color: transparent;
+  
+  &:focus {
+    border-color: var(--primary-color);
+  }
+}
+
+// Состояние ошибки
+.hasError .input {
+  border-color: var(--error);
+  
+  &:focus {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+}
+
+// Иконки
+.leftIcon,
+.rightIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+  font-size: 1.125rem;
+  pointer-events: none;
+}
+
+.leftIcon {
+  left: var(--spacing-sm);
+}
+
+.rightIcon {
+  right: var(--spacing-sm);
+}
+
+// Спиннер
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--gray-300);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Сообщения
+.error {
+  font-size: 0.875rem;
+  color: var(--error);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.helperText {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+} 

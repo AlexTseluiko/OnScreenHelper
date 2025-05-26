@@ -1,0 +1,373 @@
+.filters {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--spacing-2xl);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-200);
+  background: linear-gradient(135deg, var(--gray-50), white);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.activeCount {
+  background: var(--primary-color);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: var(--spacing-sm);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.clearButton {
+  color: var(--error);
+  
+  &:hover {
+    background: rgba(239, 68, 68, 0.1);
+  }
+}
+
+.expandButton {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  
+  &:hover {
+    background: var(--gray-100);
+  }
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal) ease-out;
+  
+  &.expanded {
+    max-height: 1000px;
+  }
+}
+
+.section {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-100);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  
+  &::before {
+    content: '🔧';
+    font-size: 1rem;
+  }
+}
+
+// Категории
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--spacing-xs);
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--spacing-xs);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--gray-25);
+}
+
+.categoryButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  min-height: 44px;
+  
+  &:hover {
+    background: var(--gray-50);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  &.active {
+    background: var(--primary-color);
+    border-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+  }
+}
+
+.categoryIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.categoryName {
+  flex: 1;
+  text-align: left;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+// Возраст
+.ageRange {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.ageInputs {
+  display: flex;
+  align-items: end;
+  gap: var(--spacing-md);
+  
+  > :first-child,
+  > :last-child {
+    flex: 1;
+  }
+}
+
+.ageSeparator {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-400);
+  padding-bottom: var(--spacing-sm);
+}
+
+.applyAgeButton {
+  align-self: flex-start;
+}
+
+.ageSlider {
+  position: relative;
+  margin: var(--spacing-md) 0;
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.sliderLabel {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.sliderValue {
+  font-size: 0.875rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  background: var(--gray-50);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-200);
+}
+
+.sliderContainer {
+  position: relative;
+  height: 40px;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--gray-200);
+  outline: none;
+  appearance: none;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 1;
+  }
+  
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+    
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+    
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  &::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  &.sliderMin {
+    z-index: 1;
+  }
+  
+  &.sliderMax {
+    z-index: 2;
+    background: transparent;
+  }
+}
+
+// Пол
+.genderButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.genderButton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: var(--gray-50);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-300);
+    transform: translateY(-2px);
+  }
+  
+  &.active {
+    background: var(--primary-color);
+    border-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.genderIcon {
+  font-size: 1.5rem;
+}
+
+.genderText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .filters {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .header {
+    padding: var(--spacing-md);
+  }
+  
+  .section {
+    padding: var(--spacing-md);
+  }
+  
+  .categoryGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ageInputs {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .ageSeparator {
+      text-align: center;
+      padding: var(--spacing-xs) 0;
+    }
+  }
+  
+  .genderButtons {
+    flex-direction: column;
+  }
+}
+
+// Анимации
+@keyframes filterSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: filterSlideIn var(--transition-normal) ease-out;
+} 

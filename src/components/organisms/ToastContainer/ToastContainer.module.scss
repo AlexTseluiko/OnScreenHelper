@@ -1,0 +1,103 @@
+.container {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-height: 80vh;
+  overflow-y: auto;
+  pointer-events: none;
+  
+  // Дозволяємо взаємодію тільки з Toast елементами
+  * {
+    pointer-events: auto;
+  }
+}
+
+// Позиції контейнера
+.topRight {
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+}
+
+.topLeft {
+  top: var(--spacing-lg);
+  left: var(--spacing-lg);
+}
+
+.bottomRight {
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  flex-direction: column-reverse;
+}
+
+.bottomLeft {
+  bottom: var(--spacing-lg);
+  left: var(--spacing-lg);
+  flex-direction: column-reverse;
+}
+
+.topCenter {
+  top: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottomCenter {
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+}
+
+.toastItem {
+  opacity: 0;
+  animation: fadeInScale var(--transition-normal) ease-out forwards;
+  
+  &:nth-child(n+4) {
+    // Приховуємо тости після 3-го для економії місця
+    display: none;
+  }
+}
+
+// Анімації для елементів
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// Адаптивність
+@media (max-width: 768px) {
+  .container {
+    left: var(--spacing-md) !important;
+    right: var(--spacing-md) !important;
+    transform: none !important;
+    max-width: calc(100vw - 2rem);
+  }
+  
+  .topCenter,
+  .bottomCenter {
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    transform: none;
+  }
+}
+
+// Стилі скролбара для мобільних
+@media (max-width: 768px) {
+  .container {
+    // Приховуємо скролбар на мобільних
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+} 

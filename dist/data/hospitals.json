@@ -1,0 +1,89 @@
+[
+  {
+    "id": "hospital_1",
+    "name": "Київська міська клінічна лікарня №1",
+    "address": "вул. Володимирська, 12, Київ",
+    "coordinates": [50.4501, 30.5234],
+    "phone": "+380 44 123-45-67",
+    "website": "https://kmkl1.kiev.ua",
+    "availableScreenings": ["mammography", "echocardiography"]
+  },
+  {
+    "id": "hospital_2", 
+    "name": "Центр профілактичної медицини 'Здоров'я'",
+    "address": "просп. Перемоги, 45, Київ",
+    "coordinates": [50.4503, 30.4897],
+    "phone": "+380 44 234-56-78",
+    "availableScreenings": ["colonoscopy", "thyroid_ultrasound"]
+  },
+  {
+    "id": "hospital_3",
+    "name": "Багатопрофільна клініка 'Медцентр Київ'",
+    "address": "вул. Лікувальна, 8, Київ",
+    "coordinates": [50.4215, 30.5097],
+    "phone": "+380 44 345-67-89",
+    "website": "https://medcenter-kyiv.ua",
+    "availableScreenings": ["colonoscopy", "fundus_examination"]
+  },
+  {
+    "id": "hospital_4",
+    "name": "Національний інститут серцево-судинної хірургії",
+    "address": "вул. Амосова, 6, Київ",
+    "coordinates": [50.4020, 30.5011],
+    "phone": "+380 44 456-78-90",
+    "website": "https://amosovinstitute.org.ua",
+    "availableScreenings": ["echocardiography"]
+  },
+  {
+    "id": "hospital_5",
+    "name": "Львівська обласна клінічна лікарня",
+    "address": "вул. Данила Галицького, 5, Львів",
+    "coordinates": [49.8397, 24.0297],
+    "phone": "+380 32 567-89-01",
+    "availableScreenings": ["mammography", "thyroid_ultrasound"]
+  },
+  {
+    "id": "hospital_6",
+    "name": "Діагностичний центр 'Precizmed' Харків",
+    "address": "просп. Науки, 9а, Харків",
+    "coordinates": [50.0038, 36.2341],
+    "phone": "+380 57 678-90-12",
+    "website": "https://precizmed.kh.ua",
+    "availableScreenings": ["colonoscopy", "fundus_examination"]
+  },
+  {
+    "id": "hospital_7",
+    "name": "Національний інститут раку",
+    "address": "вул. Ломоносова, 33/43, Київ",
+    "coordinates": [50.4392, 30.5150],
+    "phone": "+380 44 789-01-23",
+    "website": "https://nci.org.ua",
+    "availableScreenings": ["mammography"]
+  },
+  {
+    "id": "hospital_8",
+    "name": "Дніпровська міська клінічна лікарня №4",
+    "address": "вул. Ближня, 31, Дніпро",
+    "coordinates": [48.4647, 35.0462],
+    "phone": "+380 56 890-12-34",
+    "availableScreenings": ["echocardiography"]
+  },
+  {
+    "id": "hospital_9",
+    "name": "Одеський медичний університет - клініка",
+    "address": "Валіховський провулок, 2, Одеса",
+    "coordinates": [46.4825, 30.7233],
+    "phone": "+380 48 901-23-45",
+    "website": "https://odmu.edu.ua",
+    "availableScreenings": ["thyroid_ultrasound"]
+  },
+  {
+    "id": "hospital_10",
+    "name": "Офтальмологічна клініка 'Зір Плюс'",
+    "address": "вул. Шевченка, 25, Київ",
+    "coordinates": [50.4444, 30.5186],
+    "phone": "+380 44 012-34-56",
+    "website": "https://zir-plus.com.ua",
+    "availableScreenings": ["fundus_examination"]
+  }
+] 

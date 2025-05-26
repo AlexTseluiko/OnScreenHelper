@@ -1,0 +1,43 @@
+{
+  "name": "medical-screening-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/device": "^7.0.1",
+    "@capacitor/keyboard": "^7.0.1",
+    "@capacitor/splash-screen": "^7.0.1",
+    "@capacitor/status-bar": "^7.0.1",
+    "@googlemaps/js-api-loader": "^1.16.8",
+    "@googlemaps/react-wrapper": "^1.2.0",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "chart.js": "^4.4.0",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.20.1",
+    "sass": "^1.69.5",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.18",
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.7"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "mobile:sync": "npm run build && npx cap sync",
+    "mobile:android": "npm run mobile:sync && npx cap open android",
+    "mobile:build": "npm run mobile:sync && cd android && ./gradlew assembleDebug",
+    "mobile:release": "npm run mobile:sync && cd android && ./gradlew assembleRelease"
+  }
+}
