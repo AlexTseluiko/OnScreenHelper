@@ -1,8 +1,8 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.medicalscreening.app',
-  appName: 'Medical Screening',
+  appId: 'ua.medhelper.app',
+  appName: 'MedHelper',
   webDir: 'dist',
   server: {
     androidScheme: 'https'
@@ -10,19 +10,39 @@ const config: CapacitorConfig = {
   plugins: {
     SplashScreen: {
       launchShowDuration: 2000,
-      backgroundColor: "#2563eb",
-      showSpinner: true,
-      spinnerColor: "#ffffff"
+      launchAutoHide: true,
+      backgroundColor: "#ffffff",
+      androidSplashResourceName: "splash",
+      androidScaleType: "CENTER_CROP",
+      showSpinner: false,
+      splashFullScreen: true,
+      splashImmersive: true,
     },
     StatusBar: {
-      style: 'dark',
-      backgroundColor: "#2563eb"
+      style: 'default',
+      backgroundColor: '#ffffff'
+    },
+    Geolocation: {
+      permissions: {
+        android: [
+          'ACCESS_COARSE_LOCATION',
+          'ACCESS_FINE_LOCATION'
+        ]
+      }
+    },
+    GoogleMaps: {
+      permissions: {
+        android: [
+          'ACCESS_COARSE_LOCATION',
+          'ACCESS_FINE_LOCATION'
+        ]
+      }
     }
   },
   android: {
     allowMixedContent: true,
     captureInput: true,
-    webContentsDebuggingEnabled: true
+    webContentsDebuggingEnabled: false
   }
 };
 

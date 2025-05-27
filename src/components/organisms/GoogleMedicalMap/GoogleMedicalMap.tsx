@@ -386,9 +386,7 @@ const render = (status: Status) => {
 
 export const GoogleMedicalMap: React.FC<GoogleMedicalMapProps> = ({ 
   className = '', 
-  height = '500px',
-  userLocation,
-  hasLocationPermission
+  height = '500px'
 }) => {
   const [foundPlaces, setFoundPlaces] = useState<MedicalPlace[]>([]);
 
