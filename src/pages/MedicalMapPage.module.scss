@@ -192,6 +192,67 @@
   text-align: center;
 }
 
+// Геолокація стилі
+.geolocationRequest {
+  margin: var(--spacing-xl) 0;
+}
+
+.mapContainer {
+  margin: var(--spacing-xl) 0;
+}
+
+.locationStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--info-light);
+  border: 2px solid var(--info);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  
+  span {
+    color: var(--info-dark);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+}
+
+.locationIcon {
+  font-size: 1.25rem;
+}
+
+.changeLocationButton,
+.enableLocationButton {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  
+  &:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.enableLocationButton {
+  background: var(--success);
+  
+  &:hover {
+    background: var(--success-dark);
+  }
+}
+
 // Адаптивність
 @media (max-width: 768px) {
   .container {
@@ -235,6 +296,12 @@
     text-align: center;
     gap: var(--spacing-sm);
   }
+
+  .locationStatus {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
 }
 
 @media (max-width: 480px) {
@@ -244,5 +311,11 @@
 
   .title {
     font-size: 1.75rem;
+  }
+
+  .changeLocationButton,
+  .enableLocationButton {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
   }
 } 

@@ -1,0 +1,426 @@
+.educationPage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  
+  h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-weight: 700;
+  }
+  
+  p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 2px solid var(--gray-200);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-sm);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  
+  &:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  &.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow-lg);
+    
+    .tabIcon, .tabTitle {
+      color: white;
+    }
+  }
+}
+
+.tabIcon {
+  font-size: 1.5rem;
+}
+
+.tabTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--gray-700);
+}
+
+.content {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  min-height: 500px;
+}
+
+// Профілактика
+.preventionContent {
+  h3 {
+    color: var(--primary-color);
+    font-size: 1.375rem;
+    margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  p {
+    font-size: 1rem;
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      background: var(--success-light);
+      padding: var(--spacing-sm) var(--spacing-md);
+      margin-bottom: var(--spacing-sm);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--success);
+      
+      &::before {
+        content: "✓";
+        color: var(--success);
+        font-weight: bold;
+        margin-right: var(--spacing-sm);
+      }
+    }
+  }
+}
+
+// Поради лікарів
+.adviceContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.doctorAdvice {
+  h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+}
+
+.adviceCard {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-xl);
+  color: white;
+  box-shadow: var(--shadow-md);
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    
+    strong {
+      font-weight: 700;
+    }
+  }
+}
+
+.tip {
+  background: rgba(255, 255, 255, 0.2);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  border-left: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+// FAQ
+.faqContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.faqItem {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.faqQuestion {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: var(--gray-50);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  text-align: left;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: var(--primary-light);
+  }
+  
+  &.active {
+    background: var(--primary-color);
+    color: white;
+  }
+}
+
+.faqIcon {
+  font-size: 1.25rem;
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
+}
+
+.faqAnswer {
+  padding: var(--spacing-lg);
+  background: white;
+  border-top: 1px solid var(--gray-200);
+  animation: fadeIn 0.3s ease;
+  
+  p {
+    line-height: 1.6;
+    color: var(--gray-700);
+    margin: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Симптом-чекер
+.symptomChecker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.symptomInput {
+  text-align: center;
+  
+  h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+.symptomField {
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-lg);
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  }
+  
+  &::placeholder {
+    color: var(--gray-500);
+  }
+}
+
+.checkButton {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.symptomResults {
+  background: var(--info-light);
+  border: 2px solid var(--info);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  
+  h4 {
+    color: var(--info-dark);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+  }
+  
+  h5 {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+    
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+
+.possibleCauses, .recommendations {
+  margin-bottom: var(--spacing-lg);
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      background: white;
+      padding: var(--spacing-sm) var(--spacing-md);
+      margin-bottom: var(--spacing-sm);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--info);
+      
+      &::before {
+        content: "•";
+        color: var(--info);
+        font-weight: bold;
+        margin-right: var(--spacing-sm);
+      }
+    }
+  }
+}
+
+.disclaimer {
+  background: var(--warning-light);
+  border: 2px solid var(--warning);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  color: var(--warning-dark);
+  font-size: 0.875rem;
+  text-align: center;
+  
+  strong {
+    color: var(--warning-dark);
+  }
+}
+
+// Адаптивність
+@media (max-width: 768px) {
+  .educationPage {
+    padding: var(--spacing-md);
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .tab {
+    min-width: 120px;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .content {
+    padding: var(--spacing-lg);
+  }
+  
+  .symptomField {
+    max-width: 100%;
+  }
+  
+  .adviceContent {
+    gap: var(--spacing-lg);
+  }
+  
+  .adviceCard {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .tab {
+    min-width: 100px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .tabTitle {
+    font-size: 0.75rem;
+  }
+  
+  .content {
+    padding: var(--spacing-md);
+  }
+  
+  .faqQuestion {
+    padding: var(--spacing-md);
+    font-size: 0.875rem;
+  }
+  
+  .faqAnswer {
+    padding: var(--spacing-md);
+  }
+} 

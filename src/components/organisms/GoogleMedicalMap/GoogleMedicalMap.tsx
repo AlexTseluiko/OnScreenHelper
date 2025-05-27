@@ -32,6 +32,8 @@ interface MedicalPlace {
 interface GoogleMedicalMapProps {
   className?: string;
   height?: string;
+  userLocation?: GeolocationPosition | null;
+  hasLocationPermission?: boolean;
 }
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBOy6uPJSI-pFCbjTJUqAUsb2eKJBi_sAw';
@@ -384,7 +386,9 @@ const render = (status: Status) => {
 
 export const GoogleMedicalMap: React.FC<GoogleMedicalMapProps> = ({ 
   className = '', 
-  height = '500px' 
+  height = '500px',
+  userLocation,
+  hasLocationPermission
 }) => {
   const [foundPlaces, setFoundPlaces] = useState<MedicalPlace[]>([]);
 

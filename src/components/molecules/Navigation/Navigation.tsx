@@ -10,23 +10,23 @@ export const Navigation: React.FC = () => {
   const navItems = [
     {
       path: '/',
-      label: '🏥 Скринінги',
-      description: 'Пошук медичних скринінгів'
+      label: '🏥 Скринінги'
+    },
+    {
+      path: '/education',
+      label: '📚 Освіта'
     },
     {
       path: '/medical-map',
-      label: '🗺️ Медична карта',
-      description: 'Заклади поруч з вами'
+      label: '🗺️ Карта'
     },
     {
       path: '/calendar',
-      label: '📅 Календар',
-      description: 'Планування та трекінг скринінгів'
+      label: '📅 Календар'
     },
     {
       path: '/profile',
-      label: state.profile ? '👤 Профіль' : '✨ Створити профіль',
-      description: state.profile ? 'Персональні рекомендації' : 'Отримати персональні поради'
+      label: state.profile ? '👤 Профіль' : '✨ Профіль'
     }
   ];
 
@@ -35,7 +35,6 @@ export const Navigation: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.logo}>
           <h1>🏥 MedHelper</h1>
-          <span>Ваш медичний помічник</span>
         </div>
         
         <div className={styles.navItems}>
@@ -48,7 +47,6 @@ export const Navigation: React.FC = () => {
               } ${item.path === '/profile' && !state.profile ? styles.highlight : ''}`}
             >
               <span className={styles.navLabel}>{item.label}</span>
-              <span className={styles.navDescription}>{item.description}</span>
               {item.path === '/profile' && state.profile && state.recommendations.length > 0 && (
                 <span className={styles.badge}>{state.recommendations.length}</span>
               )}

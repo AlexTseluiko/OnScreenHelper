@@ -10,12 +10,13 @@ import { ExportButton } from './components/molecules/ExportButton/ExportButton';
 import { Navigation } from './components/molecules/Navigation/Navigation';
 import { MedicalMapPage } from './pages/MedicalMapPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { CalendarPage } from './pages/CalendarPage';
+import { EducationPage } from './pages/EducationPage';
 import { useToast } from './hooks/useToast';
 import { Screening } from './types/screening';
 import styles from './App.module.scss';
 import { Button } from './components/atoms/Button/Button';
 import { Modal } from './components/organisms/Modal/Modal';
-import { CalendarPage } from './pages/CalendarPage';
 
 const LoadingSpinner = () => (
   <div className={styles.loading}>
@@ -204,6 +205,7 @@ const AppContent = () => {
         <Routes>
           <Route path="/" element={<ScreeningList />} />
           <Route path="/screenings" element={<ScreeningList />} />
+          <Route path="/education" element={<EducationPage />} />
           <Route path="/medical-map" element={<MedicalMapPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/calendar" element={<CalendarPage />} />

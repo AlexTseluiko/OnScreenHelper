@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleMedicalMap } from '@/components/organisms/GoogleMedicalMap/GoogleMedicalMap';
+import { GeolocationRequest } from '@/components/organisms/GeolocationRequest/GeolocationRequest';
 import styles from './MedicalMapPage.module.scss';
 
 export const MedicalMapPage: React.FC = () => {
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
+  const [userLocation, setUserLocation] = useState<GeolocationPosition | null>(null);
+  const [showLocationRequest, setShowLocationRequest] = useState(true);
+
+  const handleLocationGranted = (position: GeolocationPosition) => {
+    setUserLocation(position);
+    setLocationPermissionGranted(true);
+    setShowLocationRequest(false);
+  };
+
+  const handleLocationDenied = () => {
+    setLocationPermissionGranted(false);
+    setShowLocationRequest(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
@@ -12,11 +28,24 @@ export const MedicalMapPage: React.FC = () => {
         </p>
       </div>
 
+      {showLocationRequest && (
+        <GeolocationRequest
+          onLocationGranted={handleLocationGranted}
+          onLocationDenied={handleLocationDenied}
+          className={styles.geolocationRequest}
+        />
+      )}
+
       <div className={styles.features}>
         <div className={styles.feature}>
           <div className={styles.featureIcon}>📍</div>
           <h3>Геолокація</h3>
-          <p>Автоматичне визначення вашого місцезнаходження</p>
+          <p>
+            {locationPermissionGranted 
+              ? 'Визначення вашого місцезнаходження активне' 
+              : 'Автоматичне визначення вашого місцезнаходження'
+            }
+          </p>
         </div>
         <div className={styles.feature}>
           <div className={styles.featureIcon}>🔍</div>
@@ -35,7 +64,39 @@ export const MedicalMapPage: React.FC = () => {
         </div>
       </div>
 
-      <GoogleMedicalMap height="600px" />
+      <div className={styles.mapContainer}>
+        {!showLocationRequest && locationPermissionGranted && userLocation && (
+          <div className={styles.locationStatus}>
+            <span className={styles.locationIcon}>✅</span>
+            <span>Геолокація активна - показуємо заклади поруч з вами</span>
+            <button 
+              onClick={() => setShowLocationRequest(true)}
+              className={styles.changeLocationButton}
+            >
+              Змінити місцезнаходження
+            </button>
+          </div>
+        )}
+        
+        {!showLocationRequest && !locationPermissionGranted && (
+          <div className={styles.locationStatus}>
+            <span className={styles.locationIcon}>📍</span>
+            <span>Пошук по всій території України</span>
+            <button 
+              onClick={() => setShowLocationRequest(true)}
+              className={styles.enableLocationButton}
+            >
+              Увімкнути геолокацію
+            </button>
+          </div>
+        )}
+
+        <GoogleMedicalMap 
+          height="600px" 
+          userLocation={userLocation}
+          hasLocationPermission={locationPermissionGranted}
+        />
+      </div>
 
       <div className={styles.info}>
         <div className={styles.infoCard}>

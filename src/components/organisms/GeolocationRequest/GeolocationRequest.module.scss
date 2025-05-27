@@ -1,0 +1,287 @@
+.container {
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.requestCard {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  margin: 0 auto;
+  border: 2px solid var(--primary-light);
+}
+
+.icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.requestCard h3 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+}
+
+.requestCard p {
+  color: var(--gray-700);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+  font-size: 1rem;
+}
+
+.benefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  background: var(--success-light);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--success);
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-align: left;
+  color: var(--gray-800);
+  font-weight: 500;
+}
+
+.benefitIcon {
+  font-size: 1.25rem;
+  min-width: 24px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+}
+
+.primaryButton {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.skipButton {
+  background: none;
+  border: none;
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: var(--gray-800);
+    background: var(--gray-100);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.manualInput {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--gray-200);
+  
+  h4 {
+    color: var(--gray-800);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  gap: var(--spacing-sm);
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.locationInput {
+  flex: 1;
+  padding: var(--spacing-md);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  }
+  
+  &::placeholder {
+    color: var(--gray-500);
+  }
+}
+
+.errorMessage {
+  background: var(--error-light);
+  border: 2px solid var(--error);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  text-align: left;
+  
+  p {
+    margin: 0;
+    color: var(--error-dark);
+    font-weight: 500;
+  }
+}
+
+.errorIcon {
+  font-size: 1.25rem;
+  margin-top: 2px;
+}
+
+.permissionHelp {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: var(--info-light);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--info);
+  text-align: left;
+  
+  h4 {
+    color: var(--info-dark);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+  }
+  
+  ol {
+    margin: 0;
+    padding-left: var(--spacing-lg);
+    color: var(--gray-700);
+    
+    li {
+      margin-bottom: var(--spacing-xs);
+      line-height: 1.5;
+    }
+  }
+}
+
+// Успішне повідомлення
+.successMessage {
+  background: var(--success-light);
+  border: 2px solid var(--success);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  text-align: center;
+  
+  .icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  h3 {
+    color: var(--success-dark);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+  }
+  
+  p {
+    color: var(--gray-700);
+    margin: 0;
+  }
+}
+
+// Недоступна геолокація
+.unavailableMessage {
+  background: var(--warning-light);
+  border: 2px solid var(--warning);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  text-align: center;
+  
+  .icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  h3 {
+    color: var(--warning-dark);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+  }
+  
+  p {
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+// Адаптивність
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .requestCard {
+    padding: var(--spacing-lg);
+  }
+  
+  .icon {
+    font-size: 3rem;
+  }
+  
+  .requestCard h3 {
+    font-size: 1.25rem;
+  }
+  
+  .benefits {
+    padding: var(--spacing-md);
+  }
+  
+  .benefit {
+    gap: var(--spacing-sm);
+    font-size: 0.875rem;
+  }
+  
+  .benefitIcon {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+  
+  .requestCard {
+    padding: var(--spacing-md);
+  }
+  
+  .benefits {
+    padding: var(--spacing-sm);
+  }
+  
+  .manualInput {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+  }
+} 
