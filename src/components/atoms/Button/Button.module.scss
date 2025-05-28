@@ -167,4 +167,75 @@
 
 .text {
   transition: opacity var(--transition-fast);
+}
+
+// Темна тема з покращеним контрастом
+@media (prefers-color-scheme: dark) {
+  .button {
+    &:focus-visible {
+      outline: 2px solid #4f7fff;
+      outline-offset: 2px;
+    }
+  }
+  
+  .primary {
+    background-color: #4f7fff;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    
+    &:hover:not(:disabled) {
+      background-color: #6b93ff;
+      box-shadow: 0 4px 12px rgba(79, 127, 255, 0.4);
+    }
+  }
+  
+  .secondary {
+    background-color: #3e3e42;
+    color: #ffffff;
+    border: 1px solid #5a5a5e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    
+    &:hover:not(:disabled) {
+      background-color: #4f4f52;
+      border-color: #6a6a6e;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  }
+  
+  .outline {
+    background-color: transparent;
+    color: #4f7fff;
+    border: 1.5px solid #4f7fff;
+    
+    &:hover:not(:disabled) {
+      background-color: #4f7fff;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(79, 127, 255, 0.4);
+    }
+  }
+  
+  .ghost {
+    background-color: transparent;
+    color: #d4d4d8;
+    
+    &:hover:not(:disabled) {
+      background-color: #3e3e42;
+      color: #ffffff;
+    }
+    
+    &:active {
+      background-color: #4f4f52;
+    }
+  }
+  
+  .danger {
+    background-color: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    
+    &:hover:not(:disabled) {
+      background-color: #f87171;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+  }
 } 

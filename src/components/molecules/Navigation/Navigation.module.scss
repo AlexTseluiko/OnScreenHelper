@@ -634,21 +634,87 @@
   }
 }
 
-// Dark theme підтримка (для майбутнього)
+// Dark theme підтримка з покращеними кольорами
 @media (prefers-color-scheme: dark) {
   .navigation {
-    background: linear-gradient(180deg, rgba(17, 24, 39, 0.95) 0%, rgba(31, 41, 55, 0.95) 100%);
-    border-bottom-color: rgba(59, 130, 246, 0.5);
+    background: linear-gradient(180deg, rgba(30, 30, 30, 0.98) 0%, rgba(45, 45, 48, 0.98) 100%);
+    border-bottom-color: rgba(90, 90, 94, 0.6);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+  .container {
+    background: transparent;
+  }
+  
+  .logo {
+    h1 {
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .logoIcon {
+      filter: brightness(1.2);
+    }
   }
   
   .navItem {
-    background: linear-gradient(145deg, rgba(55, 65, 81, 0.8), rgba(75, 85, 99, 0.8));
-    border-color: rgba(59, 130, 246, 0.2);
-    color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(145deg, rgba(62, 62, 66, 0.9), rgba(90, 90, 94, 0.7));
+    border: 1px solid rgba(138, 138, 142, 0.3);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    
+    &:hover {
+      background: linear-gradient(145deg, rgba(79, 127, 255, 0.8), rgba(107, 147, 255, 0.6));
+      border-color: rgba(79, 127, 255, 0.6);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(79, 127, 255, 0.3);
+    }
+    
+    &.active {
+      background: linear-gradient(145deg, #4f7fff, #6b93ff);
+      border-color: #4f7fff;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(79, 127, 255, 0.4);
+    }
   }
   
   .navLabel {
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .badge {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  // Покращення для мобільних пристроїв у темній темі
+  @include mobile-only {
+    .navigation {
+      background: linear-gradient(180deg, rgba(12, 12, 13, 0.98) 0%, rgba(30, 30, 30, 0.98) 100%);
+      border-bottom: 1px solid rgba(90, 90, 94, 0.4);
+    }
+    
+    .navItem {
+      background: rgba(45, 45, 48, 0.8);
+      border-color: rgba(90, 90, 94, 0.4);
+      
+      &:hover,
+      &:active {
+        background: rgba(79, 127, 255, 0.8);
+        border-color: rgba(79, 127, 255, 0.6);
+      }
+      
+      &.active {
+        background: #4f7fff;
+        border-color: #4f7fff;
+      }
+    }
   }
 }
 

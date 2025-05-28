@@ -142,4 +142,94 @@
 .helperText {
   font-size: 0.875rem;
   color: var(--gray-500);
+}
+
+// Темна тема з покращеним контрастом
+@media (prefers-color-scheme: dark) {
+  .label {
+    color: #d4d4d8;
+    
+    .required {
+      color: #ef4444;
+    }
+  }
+  
+  .input {
+    background-color: #3e3e42;
+    color: #ffffff;
+    border-color: #5a5a5e;
+    
+    &::placeholder {
+      color: #8a8a8e;
+    }
+    
+    &:focus {
+      border-color: #4f7fff;
+      background-color: #2d2d30;
+      box-shadow: 0 0 0 3px rgba(79, 127, 255, 0.2);
+    }
+    
+    &:disabled {
+      background-color: #2d2d30;
+      color: #8a8a8e;
+      border-color: #4f4f52;
+    }
+  }
+  
+  // Варианти дизайну для темної теми
+  .default .input {
+    border-color: #5a5a5e;
+    background-color: #3e3e42;
+  }
+  
+  .filled .input {
+    border-color: transparent;
+    background-color: #2d2d30;
+    
+    &:focus {
+      background-color: #3e3e42;
+      border-color: #4f7fff;
+    }
+  }
+  
+  .outline .input {
+    border-color: #5a5a5e;
+    background-color: transparent;
+    
+    &:focus {
+      border-color: #4f7fff;
+      background-color: #2d2d30;
+    }
+  }
+  
+  // Стан помилки
+  .hasError .input {
+    border-color: #ef4444;
+    background-color: #3e3e42;
+    
+    &:focus {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+  }
+  
+  // Іконки
+  .leftIcon,
+  .rightIcon {
+    color: #8a8a8e;
+  }
+  
+  .spinner {
+    border-color: #5a5a5e;
+    border-top-color: #4f7fff;
+  }
+  
+  // Повідомлення
+  .error {
+    color: #f87171;
+  }
+  
+  .helperText {
+    color: #b4b4b8;
+  }
 } 

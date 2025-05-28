@@ -570,4 +570,134 @@
       transform: none;
     }
   }
+}
+
+// Темна тема з покращеним контрастом
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #2d2d30;
+    border-color: #5a5a5e;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    
+    &:hover {
+      background: #3e3e42;
+      border-color: #8a8a8e;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  .category {
+    background: #3e3e42;
+    border: 1px solid #5a5a5e;
+    color: #ffffff;
+  }
+  
+  .categoryText {
+    color: #e8e8ea;
+  }
+  
+  .title {
+    color: #ffffff;
+  }
+  
+  .ageRange,
+  .frequency,
+  .gender {
+    background: #3e3e42;
+    border: 1px solid #5a5a5e;
+    color: #e8e8ea;
+  }
+  
+  .ageRangeText,
+  .frequencyText,
+  .genderText {
+    color: #ffffff;
+  }
+  
+  .description {
+    color: #d4d4d8;
+  }
+  
+  .riskFactors {
+    border-top-color: #5a5a5e;
+  }
+  
+  .riskFactorTag {
+    background: #4f4f52;
+    border: 1px solid #6a6a6e;
+    color: #e8e8ea;
+    
+    &:hover {
+      background: #5a5a5e;
+      border-color: #8a8a8e;
+      color: #ffffff;
+    }
+  }
+  
+  .detailsButton {
+    background: #4f7fff;
+    border-color: #4f7fff;
+    color: #ffffff;
+    
+    &:hover {
+      background: #6b93ff;
+      border-color: #6b93ff;
+    }
+  }
+  
+  .whereButton {
+    background: #3e3e42;
+    border: 1px solid #5a5a5e;
+    color: #ffffff;
+    
+    &:hover {
+      background: #4f4f52;
+      border-color: #6a6a6e;
+    }
+  }
+  
+  .bookmarkButton {
+    color: #e8e8ea;
+    
+    &:hover {
+      color: #ffffff;
+    }
+    
+    &.bookmarked {
+      color: #fbbf24;
+    }
+  }
+  
+  // Покращення для мобільних пристроїв у темній темі
+  @include mobile-only {
+    .card {
+      background: #1e1e1e;
+      border-color: #4f4f52;
+      
+      &:hover,
+      &:active {
+        background: #2d2d30;
+        border-color: #5a5a5e;
+      }
+    }
+    
+    .category,
+    .ageRange,
+    .frequency,
+    .gender {
+      background: #2d2d30;
+      border-color: #4f4f52;
+    }
+    
+    .riskFactorTag {
+      background: #3e3e42;
+      border-color: #5a5a5e;
+      
+      &:active {
+        background: #4f4f52;
+        border-color: #6a6a6e;
+      }
+    }
+  }
 } 
