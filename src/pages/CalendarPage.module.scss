@@ -1,3 +1,5 @@
+@use '../styles/responsive.scss' as *;
+
 .calendarPage {
   max-width: 1400px;
   margin: 0 auto;
@@ -220,5 +222,20 @@
 
   .headerContent h1 {
     font-size: 2rem;
+  }
+}
+
+// Рекламні секції в календарі
+.adSection {
+  margin: var(--spacing-xl) 0;
+  display: flex;
+  justify-content: center;
+  
+  @include mobile-only {
+    margin: var(--spacing-lg) calc(-1 * var(--spacing-md));
+  }
+  
+  @include mobile-xs {
+    margin: var(--spacing-md) calc(-1 * var(--spacing-sm));
   }
 } 

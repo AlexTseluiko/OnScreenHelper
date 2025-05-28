@@ -6,6 +6,7 @@ import { ScreeningHistory } from '@/components/organisms/ScreeningHistory/Screen
 import { HealthStatistics } from '@/components/organisms/HealthStatistics/HealthStatistics';
 import { ReminderSettings } from '@/components/organisms/ReminderSettings/ReminderSettings';
 import { Button } from '@/components/atoms/Button/Button';
+import AdBanner from '@/components/atoms/AdBanner/AdBanner';
 import { useToast } from '@/hooks/useToast';
 import styles from './CalendarPage.module.scss';
 
@@ -102,6 +103,9 @@ export const CalendarPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Банер під заголовком */}
+      <AdBanner size="leaderboard" position="top" />
+
       <div className={styles.tabNavigation}>
         {tabs.map(tab => (
           <button
@@ -120,27 +124,45 @@ export const CalendarPage: React.FC = () => {
 
       <div className={styles.tabContent}>
         {activeTab === 'calendar' && (
-          <HealthCalendar
-            recommendations={userState.recommendations}
-            calendarEvents={userState.calendarEvents}
-            onMarkCompleted={handleMarkCompleted}
-          />
+          <>
+            <HealthCalendar
+              recommendations={userState.recommendations}
+              calendarEvents={userState.calendarEvents}
+              onMarkCompleted={handleMarkCompleted}
+            />
+            {/* Нативна реклама в календарі */}
+            <div className={styles.adSection}>
+              <AdBanner size="native" />
+            </div>
+          </>
         )}
 
         {activeTab === 'history' && (
-          <ScreeningHistory
-            profile={userState.profile}
-            screenings={screeningState.screenings}
-            onAddCheckup={addCheckup}
-          />
+          <>
+            <ScreeningHistory
+              profile={userState.profile}
+              screenings={screeningState.screenings}
+              onAddCheckup={addCheckup}
+            />
+            {/* Прямокутна реклама в історії */}
+            <div className={styles.adSection}>
+              <AdBanner size="rectangle" />
+            </div>
+          </>
         )}
 
         {activeTab === 'statistics' && (
-          <HealthStatistics
-            profile={userState.profile}
-            recommendations={userState.recommendations}
-            screenings={screeningState.screenings}
-          />
+          <>
+            <HealthStatistics
+              profile={userState.profile}
+              recommendations={userState.recommendations}
+              screenings={screeningState.screenings}
+            />
+            {/* Мобільний банер в статистиці */}
+            <div className={styles.adSection}>
+              <AdBanner size="banner" />
+            </div>
+          </>
         )}
 
         {activeTab === 'reminders' && (

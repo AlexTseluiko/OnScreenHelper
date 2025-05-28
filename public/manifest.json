@@ -1,0 +1,23 @@
+{
+  "name": "MedHelper - Медичний помічник України",
+  "short_name": "MedHelper",
+  "description": "Медичні скринінгові програми та пошук медичних закладів",
+  "theme_color": "#2563eb",
+  "background_color": "#fcfcfd",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/medical-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical", "health", "lifestyle"],
+  "lang": "uk",
+  "dir": "ltr",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"]
+} 

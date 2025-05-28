@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useScreening } from './context/ScreeningContext';
 import { UserProvider, useUser } from './context/UserContext';
@@ -14,6 +14,7 @@ import { CalendarPage } from './pages/CalendarPage';
 import { EducationPage } from './pages/EducationPage';
 import { useToast } from './hooks/useToast';
 import { Screening } from './types/screening';
+import AdBanner from './components/atoms/AdBanner/AdBanner';
 import styles from './App.module.scss';
 import { Button } from './components/atoms/Button/Button';
 import { Modal } from './components/organisms/Modal/Modal';
@@ -110,6 +111,9 @@ const ScreeningList = () => {
         </div>
       )}
 
+      {/* Топ банер після персональної панелі */}
+      <AdBanner size="leaderboard" position="top" />
+
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h1>🩺 Медичні скринінги</h1>
@@ -136,15 +140,33 @@ const ScreeningList = () => {
         </div>
 
         <div className={styles.screeningGrid}>
-          {filteredScreenings.map(screening => (
-            <ScreeningCard
-              key={screening.id}
-              screening={screening}
-              onDetailsClick={handleScreeningClick}
-            />
+          {filteredScreenings.map((screening, index) => (
+            <React.Fragment key={screening.id}>
+              <ScreeningCard
+                screening={screening}
+                onDetailsClick={handleScreeningClick}
+              />
+              {/* Нативна реклама після кожного 3-го скринінгу */}
+              {(index + 1) % 3 === 0 && index < filteredScreenings.length - 1 && (
+                <div className={styles.adSlot}>
+                  <AdBanner size="native" />
+                </div>
+              )}
+              {/* Прямокутна реклама після кожного 6-го скринінгу */}
+              {(index + 1) % 6 === 0 && index < filteredScreenings.length - 1 && (
+                <div className={styles.adSlot}>
+                  <AdBanner size="rectangle" />
+                </div>
+              )}
+            </React.Fragment>
           ))}
         </div>
       </div>
+
+      {/* Нижній банер перед футером */}
+      {filteredScreenings.length > 0 && (
+        <AdBanner size="banner" position="bottom" />
+      )}
 
       {selectedScreening && (
         <Modal onClose={closeModal}>
@@ -181,6 +203,11 @@ const ScreeningList = () => {
                 <div className={styles.detailSection}>
                   <h3>🎯 Підготовка</h3>
                   <p>{selectedScreening.preparation}</p>
+                </div>
+
+                {/* Реклама в модальному вікні */}
+                <div className={styles.modalAd}>
+                  <AdBanner size="rectangle" />
                 </div>
               </div>
             </div>

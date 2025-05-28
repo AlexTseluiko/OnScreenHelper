@@ -43,6 +43,11 @@ const config: CapacitorConfig = {
     allowMixedContent: true,
     captureInput: true,
     webContentsDebuggingEnabled: false
+  },
+  ios: {
+    scheme: 'MedHelper',
+    contentInset: 'automatic',
+    webContentsDebuggingEnabled: false
   }
 };
 

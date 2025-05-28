@@ -39,7 +39,10 @@
     "preview": "vite preview",
     "mobile:sync": "npm run build && npx cap sync",
     "mobile:android": "npm run mobile:sync && npx cap open android",
+    "mobile:ios": "npm run mobile:sync && npx cap open ios",
     "mobile:build": "npm run mobile:sync && cd android && ./gradlew assembleDebug",
-    "mobile:release": "npm run mobile:sync && cd android && ./gradlew assembleRelease"
+    "mobile:release": "npm run mobile:sync && cd android && ./gradlew assembleRelease",
+    "ios:build": "npm run mobile:sync && npx cap build ios",
+    "ios:run": "npm run mobile:sync && npx cap run ios"
   }
 }

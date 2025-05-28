@@ -1,18 +1,37 @@
+// Імпорт responsive системи
+@use './responsive.scss' as *;
+
 // Цветовая схема медицинского приложения
 :root {
-  // Основные цвета
+  // Color palette
   --primary-color: #2563eb;
-  --primary-light: #60a5fa;
+  --primary-light: #dbeafe;
   --primary-dark: #1d4ed8;
   
-  // Медицинские акценты
-  --medical-green: #10b981;
-  --medical-red: #ef4444;
-  --medical-blue: #3b82f6;
-  --medical-purple: #8b5cf6;
-  --medical-orange: #f59e0b;
+  --secondary-color: #64748b;
+  --secondary-light: #f1f5f9;
+  --secondary-dark: #334155;
   
-  // Нейтральные цвета
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --success-dark: #065f46;
+  --success-color: #10b981; // Альтернативна назва для сумісності
+  
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --warning-dark: #92400e;
+  --warning-color: #f59e0b; // Альтернативна назва для сумісності
+  
+  --error: #ef4444;
+  --error-light: #fee2e2;
+  --error-dark: #991b1b;
+  --error-color: #ef4444; // Альтернативна назва для сумісності
+  
+  --info: #3b82f6;
+  --info-light: #dbeafe;
+  --info-dark: #1e40af;
+  
+  --gray-25: #fcfcfd;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -24,28 +43,49 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   
-  // Функциональные цвета
-  --success: var(--medical-green);
-  --warning: var(--medical-orange);
-  --error: var(--medical-red);
-  --info: var(--medical-blue);
+  // Medical specific colors
+  --medical-blue: #0891b2;
+  --medical-green: #059669;
+  --medical-purple: #7c3aed;
+  --medical-red: #dc2626;
   
-  // Тени
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  // Typography
+  --font-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --font-sm: clamp(0.875rem, 2.2vw, 1rem);
+  --font-md: clamp(1rem, 2.5vw, 1.125rem);
+  --font-lg: clamp(1.125rem, 3vw, 1.25rem);
+  --font-xl: clamp(1.25rem, 3.5vw, 1.5rem);
+  --font-2xl: clamp(1.5rem, 4vw, 1.875rem);
+  --font-3xl: clamp(1.875rem, 5vw, 2.25rem);
+  --font-4xl: clamp(2.25rem, 6vw, 3rem);
+  
+  // Layout
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  
+  // Navigation
+  --nav-height: clamp(56px, 12vw, 64px);
+  --touch-target: 44px;
+  
+  // Shadows optimized for mobile
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 6px 10px -2px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 12px 20px -4px rgb(0 0 0 / 0.08), 0 4px 8px -4px rgb(0 0 0 / 0.08);
+  
+  // Анимации с учетом производительности мобильных
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
   
   // Радиусы
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
-  // Анимации
-  --transition-fast: 150ms ease-in-out;
-  --transition-normal: 300ms ease-in-out;
-  --transition-slow: 500ms ease-in-out;
   
   // Размеры
   --spacing-xs: 0.25rem;
@@ -54,9 +94,15 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
+  
+  @include mobile-only {
+    --transition-fast: 100ms ease-in-out;
+    --transition-normal: 200ms ease-in-out;
+    --transition-slow: 300ms ease-in-out;
+  }
 }
 
-// Сброс стилей
+// Сброс стилей с оптимизацией для мобильных
 *,
 *::before,
 *::after {
@@ -70,37 +116,76 @@ html {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  // Улучшение производительности на мобильных
+  @include mobile-only {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 body {
-  background-color: var(--gray-50);
+  background-color: var(--gray-25);
   color: var(--gray-900);
-  font-size: 16px;
+  font-size: var(--font-md);
   min-height: 100vh;
+  
+  // Безопасные зоны для iPhone X+
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  
+  // Оптимизация скролла для мобильных
+  @include mobile-only {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    // Предотвращение отскока при скролле на iOS
+    overscroll-behavior: none;
+    // Улучшение производительности
+    will-change: scroll-position;
+  }
 }
 
-// Утилитные классы
+// Утилитные классы с responsive поддержкой
 .container {
-  max-width: 1200px;
+  width: 100%;
+  max-width: var(--container-lg);
   margin: 0 auto;
   padding: 0 var(--spacing-md);
+
+  @include mobile-only {
+    padding: 0 var(--spacing-sm);
+  }
 }
 
 .grid {
   display: grid;
   gap: var(--spacing-md);
+  
+  @include mobile-only {
+    gap: var(--spacing-sm);
+  }
 }
 
 .flex {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  
+  @include mobile-only {
+    gap: var(--spacing-xs);
+  }
 }
 
 .flex-col {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  
+  @include mobile-only {
+    gap: var(--spacing-xs);
+  }
 }
 
 .justify-between {
@@ -127,7 +212,19 @@ body {
   text-align: right;
 }
 
-// Анимации
+// Responsive текстовые утилиты
+.text-responsive {
+  &--xs { font-size: var(--font-xs); line-height: 1.4; }
+  &--sm { font-size: var(--font-sm); line-height: 1.4; }
+  &--md { font-size: var(--font-md); line-height: 1.5; }
+  &--lg { font-size: var(--font-lg); line-height: 1.5; }
+  &--xl { font-size: var(--font-xl); line-height: 1.6; }
+  &--2xl { font-size: var(--font-2xl); line-height: 1.6; }
+  &--3xl { font-size: var(--font-3xl); line-height: 1.3; }
+  &--4xl { font-size: var(--font-4xl); line-height: 1.2; }
+}
+
+// Анимации с оптимизацией для мобильных
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -159,16 +256,53 @@ body {
   }
 }
 
+// Мобильные версии анимаций (более быстрые)
+@include mobile-only {
+  @keyframes fadeInMobile {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInMobile {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
 .fade-in {
   animation: fadeIn var(--transition-normal);
+  
+  @include mobile-only {
+    animation: fadeInMobile var(--transition-normal);
+  }
 }
 
 .slide-in {
   animation: slideIn var(--transition-normal);
+  
+  @include mobile-only {
+    animation: slideInMobile var(--transition-normal);
+  }
 }
 
 .pulse {
   animation: pulse 2s infinite;
+  
+  @include mobile-only {
+    animation-duration: 1.5s; // Быстрее на мобильных
+  }
 }
 
 // Скрытие элементов для доступности
@@ -184,15 +318,24 @@ body {
   border: 0;
 }
 
-// Фокус для доступности
+// Фокус для доступности с адаптивностью
 .focus-visible:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
+  
+  @include mobile-only {
+    outline-width: 3px; // Более заметно на мобильных
+    outline-offset: 3px;
+  }
 }
 
-// Scrollbar styling
+// Scrollbar styling с адаптивностью
 ::-webkit-scrollbar {
   width: 8px;
+  
+  @include mobile-only {
+    width: 4px; // Тоньше на мобильных
+  }
 }
 
 ::-webkit-scrollbar-track {
@@ -206,6 +349,114 @@ body {
   
   &:hover {
     background: var(--gray-400);
+  }
+}
+
+// Мобильные touch стили
+@include mobile-only {
+  // Улучшение отзывчивости touch событий
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+  
+  // Предотвращение выделения текста при касании
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  // Улучшение производительности для часто обновляемых элементов
+  .will-change-auto {
+    will-change: auto;
+  }
+  
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-scroll {
+    will-change: scroll-position;
+  }
+}
+
+// Стили для разных размеров экранов
+@include mobile-xs {
+  // Дополнительные оптимизации для очень маленьких экранов
+  .container {
+    padding: 0 var(--spacing-xs);
+  }
+  
+  .grid {
+    gap: var(--spacing-xs);
+  }
+}
+
+@include mobile-landscape {
+  // Оптимизации для альбомной ориентации
+  body {
+    font-size: clamp(14px, 2.5vw, 16px);
+  }
+}
+
+// Темная тема с учетом системных предпочтений
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gray-25: #0a0a0b;
+    --gray-50: #171717;
+    --gray-100: #262626;
+    --gray-200: #404040;
+    --gray-300: #525252;
+    --gray-400: #737373;
+    --gray-500: #a3a3a3;
+    --gray-600: #d4d4d8;
+    --gray-700: #e4e4e7;
+    --gray-800: #f4f4f5;
+    --gray-900: #fafafa;
+  }
+  
+  body {
+    background-color: var(--gray-25);
+    color: var(--gray-900);
+  }
+}
+
+// Оптимизации для слабых устройств
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Специальные оптимизации для старых браузеров на мобильных
+@supports not (display: grid) {
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@supports not (clamp(1rem, 4vw, 2rem)) {
+  @include mobile-only {
+    // Fallback для браузеров без поддержки clamp
+    :root {
+      --font-xs: 12px;
+      --font-sm: 14px;
+      --font-md: 16px;
+      --font-lg: 18px;
+      --font-xl: 20px;
+      --font-2xl: 24px;
+      --font-3xl: 28px;
+      --font-4xl: 32px;
+    }
   }
 }
 

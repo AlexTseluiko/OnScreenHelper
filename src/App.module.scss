@@ -1,22 +1,46 @@
+@use './styles/responsive.scss' as *;
+
 .app {
   min-height: 100vh;
   background: var(--gray-25);
   display: flex;
   flex-direction: column;
+  
+  // Безпечні зони для iPhone X+
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 main {
   flex: 1;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  
+  @include mobile-only {
+    padding: var(--spacing-xl) var(--spacing-md) var(--spacing-md) var(--spacing-md);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-lg) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+  }
 }
 
 .screeningList {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--spacing-xl);
+  
+  @include mobile-only {
+    padding: var(--spacing-md);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-sm);
+  }
 }
 
 // Персональная панель
@@ -27,6 +51,18 @@ main {
   margin-bottom: var(--spacing-2xl);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--primary-color);
+  
+  @include mobile-only {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--radius-md);
+  }
 }
 
 .personalHeader {
@@ -34,6 +70,13 @@ main {
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-lg);
+  
+  @include mobile-only {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+  }
 }
 
 .userInfo {
@@ -41,38 +84,73 @@ main {
   align-items: center;
   gap: var(--spacing-md);
   
+  @include mobile-only {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+  
   h3 {
     margin: 0 0 var(--spacing-xs) 0;
     color: var(--gray-800);
-    font-size: 1.25rem;
+    font-size: var(--font-xl);
     font-weight: 600;
+    
+    @include mobile-only {
+      font-size: var(--font-lg);
+      margin-bottom: var(--spacing-xs);
+    }
   }
   
   p {
     margin: 0;
     color: var(--gray-600);
-    font-size: 0.9rem;
+    font-size: var(--font-sm);
   }
 }
 
 .userAvatar {
-  width: 48px;
-  height: 48px;
+  width: clamp(40px, 10vw, 48px);
+  height: clamp(40px, 10vw, 48px);
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: var(--font-xl);
   color: white;
   box-shadow: var(--shadow-md);
+  flex-shrink: 0;
 }
 
 .profileButton {
   color: var(--primary-color);
+  min-height: var(--touch-target);
+  // Touch оптимізація
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
   
   &:hover {
     background: var(--primary-light);
+  }
+  
+  @include mobile-only {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -80,6 +158,15 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-md);
+  
+  @include mobile-only {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  @include mobile-xs {
+    grid-template-columns: 1fr;
+  }
 }
 
 .quickRec {
@@ -88,18 +175,30 @@ main {
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-sm);
   border-left: 4px solid var(--gray-300);
+  transition: all 0.2s ease;
+  
+  @include mobile-only {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all 0.15s ease; // Швидші анімації на мобільних
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+  }
   
   h4 {
     margin: 0 0 var(--spacing-xs) 0;
     color: var(--gray-800);
-    font-size: 1rem;
+    font-size: var(--font-md);
     font-weight: 600;
   }
   
   p {
     margin: 0 0 var(--spacing-sm) 0;
     color: var(--gray-600);
-    font-size: 0.85rem;
+    font-size: var(--font-sm);
     line-height: 1.4;
   }
   
@@ -121,14 +220,14 @@ main {
   align-items: center;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-sm);
-  font-size: 0.75rem;
+  font-size: var(--font-xs);
   font-weight: 500;
   color: var(--gray-600);
   text-transform: uppercase;
 }
 
 .recDate {
-  font-size: 0.75rem;
+  font-size: var(--font-xs);
   color: var(--gray-500);
   font-weight: 500;
 }
@@ -138,13 +237,29 @@ main {
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-2xl);
+  
+  @include mobile-only {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  @include mobile-xs {
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
 }
 
 .headerContent {
   text-align: left;
   
+  @include mobile-only {
+    text-align: center;
+  }
+  
   h1 {
-    font-size: 2.5rem;
+    font-size: var(--font-4xl);
     font-weight: 700;
     color: var(--gray-900);
     margin-bottom: var(--spacing-md);
@@ -152,23 +267,49 @@ main {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    
+    @include mobile-only {
+      font-size: var(--font-3xl);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    @include mobile-xs {
+      font-size: var(--font-2xl);
+    }
   }
   
   p {
-    font-size: 1.125rem;
+    font-size: var(--font-lg);
     color: var(--gray-600);
     max-width: 600px;
     line-height: 1.6;
     margin: 0;
+    
+    @include mobile-only {
+      font-size: var(--font-md);
+      max-width: none;
+    }
   }
 }
 
 .headerActions {
   flex-shrink: 0;
+  
+  @include mobile-only {
+    width: 100%;
+  }
 }
 
 .results {
   margin-top: var(--spacing-2xl);
+  
+  @include mobile-only {
+    margin-top: var(--spacing-xl);
+  }
+  
+  @include mobile-xs {
+    margin-top: var(--spacing-lg);
+  }
 }
 
 .resultsHeader {
@@ -177,30 +318,67 @@ main {
   align-items: center;
   margin-bottom: var(--spacing-xl);
   
+  @include mobile-only {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  
   h2 {
-    font-size: 1.5rem;
+    font-size: var(--font-2xl);
     font-weight: 600;
     color: var(--gray-800);
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
     
+    @include mobile-only {
+      font-size: var(--font-xl);
+      justify-content: center;
+    }
+    
     &::before {
       content: '📊';
-      font-size: 1.25rem;
+      font-size: var(--font-xl);
+      
+      @include mobile-only {
+        font-size: var(--font-lg);
+      }
     }
   }
 }
 
 .screeningGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--spacing-xl);
+  gap: var(--spacing-md);
+  grid-template-columns: repeat(3, 1fr);
   margin-bottom: var(--spacing-2xl);
+  
+  @include mobile-md {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include mobile-sm {
+    grid-template-columns: 1fr;
+  }
+  
+  @include mobile-only {
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  @include mobile-xs {
+    margin-bottom: var(--spacing-lg);
+  }
 }
 
 .cardItem {
   animation: slideInUp 0.3s ease-out;
+  
+  @include mobile-only {
+    transform: translateZ(0);
+    will-change: transform;
+  }
 }
 
 .noResults {
@@ -210,21 +388,31 @@ main {
   border-radius: var(--radius-xl);
   border: 2px dashed var(--gray-300);
   
+  @include mobile-only {
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+  }
+  
   .noResultsIcon {
-    font-size: 4rem;
+    font-size: clamp(2rem, 8vw, 4rem);
     margin-bottom: var(--spacing-md);
     opacity: 0.5;
   }
   
   h3 {
-    font-size: 1.5rem;
+    font-size: var(--font-2xl);
     color: var(--gray-700);
     margin-bottom: var(--spacing-sm);
   }
   
   p {
     color: var(--gray-500);
-    font-size: 1rem;
+    font-size: var(--font-md);
   }
 }
 
@@ -238,6 +426,25 @@ main {
   overflow-y: auto;
   position: relative;
   box-shadow: var(--shadow-xl);
+  
+  @include mobile-only {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md);
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  @include mobile-xs {
+    width: 98%;
+    border-radius: var(--radius-md);
+    margin: var(--spacing-sm);
+  }
+  
+  @include mobile-landscape {
+    max-height: 85vh;
+  }
 }
 
 .modalHeader {
@@ -247,12 +454,30 @@ main {
   padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-md);
   border-bottom: 1px solid var(--gray-200);
   
+  @include mobile-only {
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-md);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm);
+  }
+  
   h2 {
-    font-size: 1.75rem;
+    font-size: var(--font-2xl);
     font-weight: 600;
     color: var(--gray-900);
     margin: 0;
     padding-right: var(--spacing-2xl);
+    
+    @include mobile-only {
+      font-size: var(--font-xl);
+      padding-right: var(--spacing-xl);
+    }
+    
+    @include mobile-xs {
+      font-size: var(--font-lg);
+      padding-right: var(--spacing-lg);
+    }
   }
 }
 
@@ -263,16 +488,41 @@ main {
   background: var(--gray-100);
   border: none;
   border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--touch-target);
+  height: var(--touch-target);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.25rem;
+  font-size: var(--font-xl);
   color: var(--gray-600);
   transition: all var(--transition-fast);
   z-index: 1;
+  // Touch оптимізація
+  position: absolute;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
+  
+  @include mobile-xs {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: clamp(36px, 8vw, 40px);
+    height: clamp(36px, 8vw, 40px);
+    font-size: var(--font-lg);
+  }
   
   &:hover {
     background: var(--gray-200);
@@ -283,36 +533,61 @@ main {
 
 .modalBody {
   padding: var(--spacing-xl);
+  
+  @include mobile-only {
+    padding: var(--spacing-lg);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-md);
+  }
 }
 
 .screeningDetails {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  
+  @include mobile-only {
+    gap: var(--spacing-md);
+  }
 }
 
 .detailSection {
   margin-bottom: var(--spacing-lg);
+  
+  @include mobile-only {
+    margin-bottom: var(--spacing-md);
+  }
   
   &:last-child {
     margin-bottom: 0;
   }
   
   h3 {
-    font-size: 1.25rem;
+    font-size: var(--font-xl);
     font-weight: 600;
     color: var(--gray-800);
     margin-bottom: var(--spacing-md);
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+    
+    @include mobile-only {
+      font-size: var(--font-lg);
+      margin-bottom: var(--spacing-sm);
+    }
   }
   
   p {
     color: var(--gray-600);
     line-height: 1.6;
-    font-size: 1rem;
+    font-size: var(--font-md);
     margin: var(--spacing-sm) 0;
+    
+    @include mobile-only {
+      font-size: var(--font-sm);
+    }
     
     strong {
       color: var(--gray-800);
@@ -325,6 +600,10 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-sm);
+  
+  @include mobile-only {
+    gap: var(--spacing-xs);
+  }
 }
 
 .riskFactor {
@@ -333,9 +612,15 @@ main {
   background: var(--gray-100);
   color: var(--gray-700);
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
+  font-size: var(--font-sm);
   font-weight: 500;
   border: 1px solid var(--gray-200);
+  
+  @include mobile-only {
+    font-size: var(--font-xs);
+    padding: calc(var(--spacing-xs) * 0.8) var(--spacing-xs);
+    border-radius: var(--radius-sm);
+  }
 }
 
 .loading {
@@ -346,11 +631,18 @@ main {
   min-height: 100vh;
   background: var(--gray-25);
   color: var(--gray-600);
+  padding: var(--spacing-lg);
+  
+  // Безпечні зони для iPhone X+
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .spinner {
-  width: 48px;
-  height: 48px;
+  width: clamp(40px, 10vw, 48px);
+  height: clamp(40px, 10vw, 48px);
   border: 4px solid var(--gray-300);
   border-top-color: var(--primary-color);
   border-radius: 50%;
@@ -369,15 +661,33 @@ main {
   text-align: center;
   padding: var(--spacing-xl);
   
+  // Безпечні зони для iPhone X+
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  
+  @include mobile-only {
+    padding: var(--spacing-lg);
+  }
+  
   h2 {
     margin-bottom: var(--spacing-lg);
-    font-size: 2rem;
+    font-size: var(--font-3xl);
+    
+    @include mobile-only {
+      font-size: var(--font-2xl);
+    }
   }
   
   p {
-    font-size: 1.2rem;
+    font-size: var(--font-lg);
     max-width: 500px;
     line-height: 1.6;
+    
+    @include mobile-only {
+      font-size: var(--font-md);
+    }
   }
 }
 
@@ -399,68 +709,114 @@ main {
   }
 }
 
-// Responsive Design
-@media (max-width: 768px) {
-  main {
-    padding: var(--spacing-md);
-  }
-  
-  .screeningList {
-    padding: var(--spacing-md);
-  }
-  
+// Специфічні оптимізації для різних орієнтацій
+@include mobile-landscape {
   .personalPanel {
-    padding: var(--spacing-lg);
+    .personalHeader {
+      flex-direction: row;
+      text-align: left;
+    }
+    
+    .userInfo {
+      flex-direction: row;
+      text-align: left;
+    }
   }
   
-  .personalHeader {
-    flex-direction: column;
-    gap: var(--spacing-md);
-    text-align: center;
+  .modalContent {
+    max-height: 85vh;
+  }
+}
+
+@include mobile-portrait {
+  .screeningGrid {
+    grid-template-columns: 1fr;
   }
   
   .quickRecommendations {
     grid-template-columns: 1fr;
   }
+}
+
+// Стилі для рекламних слотів
+.adSlot {
+  grid-column: 1 / -1; // Займає всю ширину грід
+  margin: var(--spacing-lg) 0;
+  display: flex;
+  justify-content: center;
   
-  .header {
-    flex-direction: column;
-    gap: var(--spacing-lg);
-    text-align: center;
-    
-    h1 {
-      font-size: 2rem;
+  @include mobile-only {
+    margin: var(--spacing-md) 0;
+  }
+  
+  @include mobile-xs {
+    margin: var(--spacing-sm) 0;
+  }
+}
+
+// Реклама в модальному вікні
+.modalAd {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: center;
+  
+  @include mobile-only {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+  }
+}
+
+// Адаптивність для рекламних банерів
+@media (max-width: 767px) {
+  .adSlot {
+    // На мобільних рекламні слоти мають більш компактний spacing
+    margin: var(--spacing-sm) calc(-1 * var(--spacing-md));
+  }
+}
+
+@media (max-width: 480px) {
+  .adSlot {
+    margin: var(--spacing-xs) calc(-1 * var(--spacing-sm));
+  }
+}
+
+// Анімації для реклами
+.adSlot {
+  animation: slideInAd 0.5s ease-out;
+}
+
+@keyframes slideInAd {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Покращена інтеграція з grid layout
+.screeningGrid {
+  // Забезпечуємо правильне відображення реклами в grid
+  .adSlot {
+    // На десктопі рекламні слоти займають повну ширину
+    @media (min-width: 1024px) {
+      grid-column: 1 / -1;
     }
-  }
-  
-  .headerContent {
-    text-align: center;
-  }
-  
-  .screeningGrid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-  
-  .modalContent {
-    width: 95%;
-    margin: var(--spacing-md);
-  }
-  
-  .modalHeader,
-  .modalBody {
-    padding: var(--spacing-md);
-  }
-  
-  .loading, .error {
-    padding: var(--spacing-lg);
     
-    h2 {
-      font-size: 1.5rem;
+    // На планшетах можуть займати 2 колонки
+    @media (min-width: 768px) and (max-width: 1023px) {
+      grid-column: 1 / -1;
     }
     
-    p {
-      font-size: 1rem;
+    // На мобільних завжди повна ширина
+    @media (max-width: 767px) {
+      grid-column: 1 / -1;
+      margin-left: calc(-1 * var(--spacing-md));
+      margin-right: calc(-1 * var(--spacing-md));
     }
   }
 } 

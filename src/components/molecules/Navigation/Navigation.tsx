@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useUser } from '@/context/UserContext';
 import styles from './Navigation.module.scss';
@@ -6,37 +6,49 @@ import styles from './Navigation.module.scss';
 export const Navigation: React.FC = () => {
   const location = useLocation();
   const { state } = useUser();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 390);
+    };
+
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   const navItems = [
     {
       path: '/',
-      label: '🏥 Скринінги'
+      label: '🏥 Скринінги',
+      shortLabel: '🏥 Скрин.'
     },
     {
       path: '/education',
-      label: '📚 Освіта'
+      label: '📚 Освіта',
+      shortLabel: '📚 Освіта'
     },
     {
       path: '/medical-map',
-      label: '🗺️ Карта'
+      label: '🗺️ Карта',
+      shortLabel: '🗺️ Карта'
     },
     {
       path: '/calendar',
-      label: '📅 Календар'
+      label: '📅 Календар',
+      shortLabel: '📅 Кален.'
     },
     {
       path: '/profile',
-      label: state.profile ? '👤 Профіль' : '✨ Профіль'
+      label: state.profile ? '👤 Профіль' : '✨ Профіль',
+      shortLabel: state.profile ? '👤 Проф.' : '✨ Проф.'
     }
   ];
 
   return (
     <nav className={styles.navigation}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          <h1>🏥 MedHelper</h1>
-        </div>
-        
         <div className={styles.navItems}>
           {navItems.map((item) => (
             <Link
@@ -46,7 +58,9 @@ export const Navigation: React.FC = () => {
                 location.pathname === item.path ? styles.active : ''
               } ${item.path === '/profile' && !state.profile ? styles.highlight : ''}`}
             >
-              <span className={styles.navLabel}>{item.label}</span>
+              <span className={styles.navLabel}>
+                {isMobile ? item.shortLabel : item.label}
+              </span>
               {item.path === '/profile' && state.profile && state.recommendations.length > 0 && (
                 <span className={styles.badge}>{state.recommendations.length}</span>
               )}

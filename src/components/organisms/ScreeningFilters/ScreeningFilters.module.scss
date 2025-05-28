@@ -1,3 +1,5 @@
+@use '../../../styles/responsive.scss' as *;
+
 .filters {
   background: white;
   border-radius: var(--radius-xl);
@@ -5,6 +7,19 @@
   margin-bottom: var(--spacing-2xl);
   overflow: hidden;
   border: 1px solid var(--gray-200);
+  transition: all 0.2s ease;
+  
+  @include mobile-only {
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    transition: all 0.15s ease; // Швидші анімації на мобільних
+  }
+  
+  @include mobile-xs {
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+  }
 }
 
 .header {
@@ -14,15 +29,36 @@
   padding: var(--spacing-lg);
   border-bottom: 1px solid var(--gray-200);
   background: linear-gradient(135deg, var(--gray-50), white);
+  
+  @include mobile-only {
+    padding: var(--spacing-md);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-sm);
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: var(--font-xl);
   font-weight: 600;
   color: var(--gray-800);
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  
+  @include mobile-only {
+    font-size: var(--font-lg);
+    gap: var(--spacing-xs);
+  }
+  
+  @include mobile-xs {
+    font-size: var(--font-md);
+    justify-content: center;
+  }
 }
 
 .activeCount {
@@ -30,29 +66,85 @@
   color: white;
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
+  font-size: var(--font-sm);
   font-weight: 500;
   margin-left: var(--spacing-sm);
+  
+  @include mobile-only {
+    font-size: var(--font-xs);
+    padding: calc(var(--spacing-xs) * 0.8) var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    margin-left: var(--spacing-xs);
+  }
 }
 
 .headerActions {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  
+  @include mobile-only {
+    gap: var(--spacing-xs);
+  }
+  
+  @include mobile-xs {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .clearButton {
   color: var(--error);
+  min-height: var(--touch-target);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
   
   &:hover {
     background: rgba(239, 68, 68, 0.1);
   }
+  
+  @include mobile-only {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-sm);
+  }
 }
 
 .expandButton {
-  width: 2rem;
-  height: 2rem;
+  width: var(--touch-target);
+  height: var(--touch-target);
   border-radius: 50%;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    width: clamp(40px, 10vw, 44px);
+    height: clamp(40px, 10vw, 44px);
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
   
   &:hover {
     background: var(--gray-100);
@@ -64,8 +156,20 @@
   overflow: hidden;
   transition: max-height var(--transition-normal) ease-out;
   
+  @include mobile-only {
+    transition: max-height var(--transition-fast) ease-out;
+  }
+  
   &.expanded {
     max-height: 1000px;
+    
+    @include mobile-only {
+      max-height: 800px;
+    }
+    
+    @include mobile-xs {
+      max-height: 600px;
+    }
   }
 }
 
@@ -73,13 +177,21 @@
   padding: var(--spacing-lg);
   border-bottom: 1px solid var(--gray-100);
   
+  @include mobile-only {
+    padding: var(--spacing-md);
+  }
+  
+  @include mobile-xs {
+    padding: var(--spacing-sm);
+  }
+  
   &:last-child {
     border-bottom: none;
   }
 }
 
 .sectionTitle {
-  font-size: 1rem;
+  font-size: var(--font-md);
   font-weight: 600;
   color: var(--gray-700);
   margin-bottom: var(--spacing-md);
@@ -87,13 +199,23 @@
   align-items: center;
   gap: var(--spacing-sm);
   
+  @include mobile-only {
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacing-sm);
+    gap: var(--spacing-xs);
+  }
+  
   &::before {
     content: '🔧';
-    font-size: 1rem;
+    font-size: var(--font-md);
+    
+    @include mobile-only {
+      font-size: var(--font-sm);
+    }
   }
 }
 
-// Категории
+// Категории с оптимизацией для мобильных
 .categoryGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -104,6 +226,40 @@
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-md);
   background: var(--gray-25);
+  
+  @include mobile-only {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    max-height: 280px;
+    gap: calc(var(--spacing-xs) * 0.8);
+    padding: calc(var(--spacing-xs) * 0.8);
+    border-radius: var(--radius-sm);
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  @include mobile-xs {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    max-height: 240px;
+    gap: calc(var(--spacing-xs) * 0.6);
+    padding: calc(var(--spacing-xs) * 0.6);
+  }
+  
+  // Оптимізований скролбар для мобільних
+  @include mobile-only {
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 2px;
+    }
+  }
 }
 
 .categoryButton {
@@ -116,16 +272,53 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
-  font-size: 0.8rem;
+  font-size: var(--font-sm);
   font-weight: 500;
   color: var(--gray-700);
-  min-height: 44px;
+  min-height: var(--touch-target);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    padding: var(--spacing-xs);
+    font-size: var(--font-xs);
+    min-height: clamp(40px, 10vw, 44px);
+    border-radius: calc(var(--radius-sm) * 0.8);
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+    transition: all 0.15s ease; // Швидші анімації на мобільних
+  }
+  
+  @include mobile-xs {
+    padding: calc(var(--spacing-xs) * 0.8);
+    font-size: clamp(10px, 2.2vw, 12px);
+    min-height: clamp(36px, 8vw, 40px);
+  }
   
   &:hover {
     background: var(--gray-50);
     border-color: var(--primary-color);
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    
+    @include mobile-only {
+      transform: scale(1.02);
+    }
+  }
+  
+  &:active {
+    @include mobile-only {
+      transform: scale(0.98);
+    }
   }
   
   &.active {
@@ -133,27 +326,58 @@
     border-color: var(--primary-dark);
     color: white;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    
+    @include mobile-only {
+      transform: scale(1.02);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    }
   }
 }
 
 .categoryIcon {
-  font-size: 1rem;
+  font-size: var(--font-md);
   flex-shrink: 0;
+  
+  @include mobile-only {
+    font-size: var(--font-sm);
+  }
+  
+  @include mobile-xs {
+    font-size: clamp(12px, 3vw, 14px);
+  }
 }
 
 .categoryName {
   flex: 1;
   text-align: left;
-  font-size: 0.8rem;
+  font-size: var(--font-sm);
   line-height: 1.2;
+  
+  @include mobile-only {
+    font-size: var(--font-xs);
+    line-height: 1.3;
+  }
+  
+  @include mobile-xs {
+    font-size: clamp(10px, 2.2vw, 12px);
+    
+    // Обрізаємо довгий текст на маленьких екранах
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
-// Возраст
+// Возраст с мобильной оптимизацией
 .ageRange {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  
+  @include mobile-only {
+    gap: var(--spacing-sm);
+  }
 }
 
 .ageInputs {
@@ -161,26 +385,83 @@
   align-items: end;
   gap: var(--spacing-md);
   
+  @include mobile-only {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  
+  @include mobile-landscape {
+    flex-direction: row;
+    align-items: end;
+  }
+  
   > :first-child,
   > :last-child {
     flex: 1;
+    
+    @include mobile-only {
+      flex: none;
+    }
+    
+    @include mobile-landscape {
+      flex: 1;
+    }
   }
 }
 
 .ageSeparator {
-  font-size: 1.25rem;
+  font-size: var(--font-xl);
   font-weight: 600;
   color: var(--gray-400);
   padding-bottom: var(--spacing-sm);
+  
+  @include mobile-only {
+    display: none; // Приховуємо в мобільній версії
+  }
+  
+  @include mobile-landscape {
+    display: block;
+    font-size: var(--font-lg);
+  }
 }
 
 .applyAgeButton {
   align-self: flex-start;
+  min-height: var(--touch-target);
+  // Touch оптимізація
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    align-self: stretch;
+    width: 100%;
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
+  
+  @include mobile-landscape {
+    align-self: flex-start;
+    width: auto;
+  }
 }
 
 .ageSlider {
   position: relative;
   margin: var(--spacing-md) 0;
+  
+  @include mobile-only {
+    margin: var(--spacing-sm) 0;
+  }
 }
 
 .sliderLabels {
@@ -188,43 +469,44 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-sm);
+  
+  @include mobile-only {
+    margin-bottom: var(--spacing-xs);
+  }
 }
 
 .sliderLabel {
-  font-size: 0.75rem;
+  font-size: var(--font-xs);
   color: var(--gray-500);
   font-weight: 500;
+  
+  @include mobile-xs {
+    font-size: clamp(10px, 2vw, 12px);
+  }
 }
 
 .sliderValue {
-  font-size: 0.875rem;
+  font-size: var(--font-sm);
   color: var(--primary-color);
   font-weight: 600;
-  background: var(--gray-50);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--gray-200);
+  
+  @include mobile-only {
+    font-size: var(--font-xs);
+  }
 }
 
-.sliderContainer {
-  position: relative;
-  height: 40px;
-}
-
+// Стилі для слайдера (оптимізовані для touch)
 .slider {
-  position: absolute;
   width: 100%;
   height: 6px;
   border-radius: 3px;
   background: var(--gray-200);
   outline: none;
   appearance: none;
-  opacity: 0.7;
-  transition: opacity var(--transition-fast);
-  cursor: pointer;
   
-  &:hover {
-    opacity: 1;
+  @include mobile-only {
+    height: 8px; // Більше для зручності touch
+    border-radius: 4px;
   }
   
   &::-webkit-slider-thumb {
@@ -234,12 +516,13 @@
     border-radius: 50%;
     background: var(--primary-color);
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: all var(--transition-fast);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     
-    &:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    @include mobile-only {
+      width: 24px; // Більший розмір для мобільних
+      height: 24px;
+      border: 3px solid white;
     }
   }
   
@@ -249,125 +532,187 @@
     border-radius: 50%;
     background: var(--primary-color);
     cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: all var(--transition-fast);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     
-    &:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    @include mobile-only {
+      width: 24px;
+      height: 24px;
+      border: 3px solid white;
     }
-  }
-  
-  &::-ms-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  &.sliderMin {
-    z-index: 1;
-  }
-  
-  &.sliderMax {
-    z-index: 2;
-    background: transparent;
   }
 }
 
-// Пол
-.genderButtons {
+// Пошук з мобільною оптимізацією
+.searchContainer {
+  position: relative;
+  
+  .searchInput {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-xl);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+    min-height: var(--touch-target);
+    
+    @include mobile-only {
+      padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-lg);
+      font-size: var(--font-sm);
+      border-radius: var(--radius-sm);
+    }
+    
+    @include mobile-xs {
+      padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) var(--spacing-md);
+      font-size: var(--font-xs);
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+  }
+  
+  .searchIcon {
+    position: absolute;
+    left: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    font-size: var(--font-lg);
+    
+    @include mobile-only {
+      left: var(--spacing-xs);
+      font-size: var(--font-md);
+    }
+  }
+}
+
+// Гендер фільтр
+.genderOptions {
   display: flex;
   gap: var(--spacing-sm);
+  
+  @include mobile-only {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  @include mobile-landscape {
+    flex-direction: row;
+  }
 }
 
 .genderButton {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-md);
-  background: var(--gray-50);
+  padding: var(--spacing-sm) var(--spacing-md);
   border: 2px solid var(--gray-200);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
+  background: white;
   cursor: pointer;
   transition: all var(--transition-fast);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+  min-height: var(--touch-target);
+  // Touch оптимізація
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    pointer-events: none;
+  }
+  
+  @include mobile-only {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-xs);
+    border-radius: var(--radius-sm);
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
   
   &:hover {
-    background: var(--gray-100);
-    border-color: var(--gray-300);
-    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+    transform: translateY(-1px);
+    
+    @include mobile-only {
+      transform: scale(1.02);
+    }
+  }
+  
+  &:active {
+    @include mobile-only {
+      transform: scale(0.98);
+    }
   }
   
   &.active {
+    border-color: var(--primary-color);
     background: var(--primary-color);
-    border-color: var(--primary-dark);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
   }
 }
 
-.genderIcon {
-  font-size: 1.5rem;
-}
-
-.genderText {
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
-// Адаптивность
-@media (max-width: 768px) {
-  .filters {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .header {
-    padding: var(--spacing-md);
-  }
-  
-  .section {
-    padding: var(--spacing-md);
-  }
-  
+// Спеціальні оптимізації для portrait/landscape
+@include mobile-portrait {
   .categoryGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
   
   .ageInputs {
     flex-direction: column;
-    align-items: stretch;
-    
-    .ageSeparator {
-      text-align: center;
-      padding: var(--spacing-xs) 0;
-    }
   }
   
-  .genderButtons {
+  .genderOptions {
     flex-direction: column;
   }
 }
 
-// Анимации
-@keyframes filterSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+@include mobile-landscape {
+  .header {
+    flex-direction: row;
+    text-align: left;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .headerActions {
+    width: auto;
+    justify-content: flex-end;
+  }
+  
+  .categoryGrid {
+    max-height: 200px; // Менше в landscape
   }
 }
 
-.section {
-  animation: filterSlideIn var(--transition-normal) ease-out;
+// Анімації для мобільних
+@include mobile-only {
+  .categoryButton {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .filters {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+// Оптимізації для продуктивності
+@media (prefers-reduced-motion: reduce) {
+  .categoryButton,
+  .genderButton,
+  .content {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
 } 
