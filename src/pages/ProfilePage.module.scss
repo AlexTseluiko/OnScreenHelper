@@ -1,4 +1,4 @@
-.profilePage {
+﻿.profilePage {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--spacing-xl);
@@ -212,13 +212,13 @@
   flex-wrap: wrap;
   align-items: center;
   
-  // Для більших екранів - горизонтальне розташування
+  // Р”Р»СЏ Р±С–Р»СЊС€РёС… РµРєСЂР°РЅС–РІ - РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРµ СЂРѕР·С‚Р°С€СѓРІР°РЅРЅСЏ
   @media (min-width: 1024px) {
     flex-wrap: nowrap;
     gap: var(--spacing-md);
   }
   
-  // Для планшетів - змішане розташування
+  // Р”Р»СЏ РїР»Р°РЅС€РµС‚С–РІ - Р·РјС–С€Р°РЅРµ СЂРѕР·С‚Р°С€СѓРІР°РЅРЅСЏ
   @media (min-width: 768px) and (max-width: 1023px) {
     justify-content: center;
     gap: var(--spacing-sm);
@@ -229,7 +229,7 @@
     }
   }
   
-  // Для мобільних - вертикальне розташування
+  // Р”Р»СЏ РјРѕР±С–Р»СЊРЅРёС… - РІРµСЂС‚РёРєР°Р»СЊРЅРµ СЂРѕР·С‚Р°С€СѓРІР°РЅРЅСЏ
   @media (max-width: 767px) {
     width: 100%;
     flex-direction: column;
@@ -240,9 +240,9 @@
       justify-content: center;
       font-size: 1rem;
       padding: var(--spacing-md) var(--spacing-lg);
-      min-height: 48px; // Мінімальний розмір для дотику
+      min-height: 48px; // РњС–РЅС–РјР°Р»СЊРЅРёР№ СЂРѕР·РјС–СЂ РґР»СЏ РґРѕС‚РёРєСѓ
       
-      // Збільшуємо іконки на мобільних
+      // Р—Р±С–Р»СЊС€СѓС”РјРѕ С–РєРѕРЅРєРё РЅР° РјРѕР±С–Р»СЊРЅРёС…
       &::before {
         font-size: 1.2em;
         margin-right: var(--spacing-sm);
@@ -262,7 +262,7 @@
     border-color: var(--error-dark);
   }
   
-  // Мобільна оптимізація
+  // РњРѕР±С–Р»СЊРЅР° РѕРїС‚РёРјС–Р·Р°С†С–СЏ
   @media (max-width: 767px) {
     background: rgba(239, 68, 68, 0.05);
     
@@ -334,17 +334,17 @@
     box-shadow: var(--shadow-lg);
   }
   
-  &.висока {
+  &.РІРёСЃРѕРєР° {
     border-left-color: var(--error);
     background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), white);
   }
   
-  &.середня {
+  &.СЃРµСЂРµРґРЅСЏ {
     border-left-color: var(--warning);
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), white);
   }
   
-  &.низька {
+  &.РЅРёР·СЊРєР° {
     border-left-color: var(--success);
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), white);
   }
@@ -582,7 +582,7 @@
     }
   }
   
-  // Кнопки вже оптимізовані вище, тут додаємо тільки spacing
+  // РљРЅРѕРїРєРё РІР¶Рµ РѕРїС‚РёРјС–Р·РѕРІР°РЅС– РІРёС‰Рµ, С‚СѓС‚ РґРѕРґР°С”РјРѕ С‚С–Р»СЊРєРё spacing
   .profileActions {
     margin-top: var(--spacing-lg);
   }
@@ -632,9 +632,55 @@
       min-height: 48px;
     }
   }
+  
+  .recommendationsList {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommendationFooter {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .historyGrid, .preferencesGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefits {
+    gap: var(--spacing-md);
+  }
+  
+  .benefit {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--spacing-md);
+  }
+  
+  .welcomeCard, .errorCard, .loadingCard {
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-xl);
+    
+    h1, h2 {
+      font-size: 1.5rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .errorActions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    
+    button {
+      width: 100%;
+      min-height: 48px;
+    }
+  }
 }
 
-// Додаткові оптимізації для дуже маленьких екранів
+// Р”РѕРґР°С‚РєРѕРІС– РѕРїС‚РёРјС–Р·Р°С†С–С— РґР»СЏ РґСѓР¶Рµ РјР°Р»РµРЅСЊРєРёС… РµРєСЂР°РЅС–РІ
 @media (max-width: 480px) {
   .profilePage {
     padding: var(--spacing-md);
@@ -672,7 +718,7 @@
   }
 }
 
-// Оптимізація для планшетів у landscape режимі
+// РћРїС‚РёРјС–Р·Р°С†С–СЏ РґР»СЏ РїР»Р°РЅС€РµС‚С–РІ Сѓ landscape СЂРµР¶РёРјС–
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   .profileHeader {
     flex-direction: row;
@@ -715,7 +761,7 @@
   animation: fadeInUp var(--transition-normal) ease-out;
 }
 
-// Додаткові оптимізації для проміжних розмірів екранів
+// Р”РѕРґР°С‚РєРѕРІС– РѕРїС‚РёРјС–Р·Р°С†С–С— РґР»СЏ РїСЂРѕРјС–Р¶РЅРёС… СЂРѕР·РјС–СЂС–РІ РµРєСЂР°РЅС–РІ
 @media (min-width: 481px) and (max-width: 640px) {
   .profileActions {
     justify-content: space-between;
@@ -733,7 +779,7 @@
   }
 }
 
-// Оптимізація для великих планшетів
+// РћРїС‚РёРјС–Р·Р°С†С–СЏ РґР»СЏ РІРµР»РёРєРёС… РїР»Р°РЅС€РµС‚С–РІ
 @media (min-width: 641px) and (max-width: 1023px) {
   .profileActions {
     justify-content: center;
@@ -747,7 +793,7 @@
   }
 }
 
-// Оптимізація для дуже великих екранів
+// РћРїС‚РёРјС–Р·Р°С†С–СЏ РґР»СЏ РґСѓР¶Рµ РІРµР»РёРєРёС… РµРєСЂР°РЅС–РІ
 @media (min-width: 1440px) {
   .profileActions {
     gap: var(--spacing-lg);
@@ -760,7 +806,7 @@
   }
 }
 
-// Hover ефекти для desktop пристроїв
+// Hover РµС„РµРєС‚Рё РґР»СЏ desktop РїСЂРёСЃС‚СЂРѕС—РІ
 @media (hover: hover) and (pointer: fine) {
   .profileActions button {
     transition: all var(--transition-fast) ease-in-out;
@@ -776,7 +822,7 @@
   }
 }
 
-// Touch оптимізація для всіх пристроїв
+// Touch РѕРїС‚РёРјС–Р·Р°С†С–СЏ РґР»СЏ РІСЃС–С… РїСЂРёСЃС‚СЂРѕС—РІ
 @media (pointer: coarse) {
   .profileActions button {
     min-height: 48px;
@@ -784,7 +830,7 @@
     border-radius: var(--radius-lg);
     font-weight: 500;
     
-    // Збільшуємо зону натискання
+    // Р—Р±С–Р»СЊС€СѓС”РјРѕ Р·РѕРЅСѓ РЅР°С‚РёСЃРєР°РЅРЅСЏ
     &::before, &::after {
       content: '';
       position: absolute;
@@ -802,7 +848,7 @@
   }
 }
 
-// Accessibility покращення
+// Accessibility РїРѕРєСЂР°С‰РµРЅРЅСЏ
 .profileActions button {
   position: relative;
   border-radius: var(--radius-md);
@@ -821,7 +867,7 @@
   }
 }
 
-// Покращення для RTL підтримки
+// РџРѕРєСЂР°С‰РµРЅРЅСЏ РґР»СЏ RTL РїС–РґС‚СЂРёРјРєРё
 [dir="rtl"] .profileActions {
   direction: rtl;
   
@@ -831,4 +877,4 @@
       margin-left: var(--spacing-sm);
     }
   }
-} 
+}

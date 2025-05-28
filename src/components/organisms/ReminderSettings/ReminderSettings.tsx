@@ -3,6 +3,7 @@ import { UserProfile } from '@/types/user';
 import { Button } from '@/components/atoms/Button/Button';
 import { Input } from '@/components/atoms/Input/Input';
 import { useToast } from '@/hooks/useToast';
+import { usePushNotifications } from '@/hooks/usePushNotifications';
 import styles from './ReminderSettings.module.scss';
 
 interface ReminderSettings {
@@ -35,7 +36,12 @@ export const ReminderSettings: React.FC<ReminderSettingsProps> = ({
   });
   
   const [hasChanges, setHasChanges] = useState(false);
-  const { success, info } = useToast();
+  const { success, info, warning } = useToast();
+  const { 
+    isSupported: pushSupported,
+    permission: pushPermission,
+    requestPermission: requestPushPermission
+  } = usePushNotifications();
 
   // Загрузка настроек из localStorage
   useEffect(() => {
@@ -64,6 +70,19 @@ export const ReminderSettings: React.FC<ReminderSettingsProps> = ({
     }));
   };
 
+  const handlePushNotificationToggle = async (enabled: boolean) => {
+    if (enabled && pushSupported && !pushPermission.granted) {
+      // Запитуємо дозвіл якщо його ще немає
+      const permission = await requestPushPermission();
+      if (!permission.granted) {
+        warning('Дозвіл на push-сповіщення не надано. Функція буде недоступна.');
+        return; // Не змінюємо налаштування якщо дозвіл не надано
+      }
+    }
+    
+    handleSettingChange('enablePushNotifications', enabled);
+  };
+
   const handleReminderDaysChange = (days: string) => {
     const daysArray = days.split(',')
       .map(d => parseInt(d.trim()))
@@ -84,32 +103,6 @@ export const ReminderSettings: React.FC<ReminderSettingsProps> = ({
       success('Налаштування нагадувань збережено!');
     } catch (error) {
       console.error('Помилка збереження налаштувань:', error);
-    }
-  };
-
-  const handleTestNotification = () => {
-    if (settings.enablePushNotifications && 'Notification' in window) {
-      if (Notification.permission === 'granted') {
-        new Notification('🩺 Тестове нагадування MedHelper', {
-          body: 'Це приклад нагадування про медичний скринінг',
-          icon: '/favicon.ico'
-        });
-        info('Тестове нагадування надіслано!');
-      } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            new Notification('🩺 Тестове нагадування MedHelper', {
-              body: 'Це приклад нагадування про медичний скринінг',
-              icon: '/favicon.ico'
-            });
-            info('Тестове нагадування надіслано!');
-          }
-        });
-      } else {
-        info('Сповіщення заблоковані в браузері');
-      }
-    } else {
-      info('Push-сповіщення недоступні або вимкнені');
     }
   };
 
@@ -146,12 +139,25 @@ export const ReminderSettings: React.FC<ReminderSettingsProps> = ({
               <input
                 type="checkbox"
                 checked={settings.enablePushNotifications}
-                onChange={(e) => handleSettingChange('enablePushNotifications', e.target.checked)}
+                onChange={(e) => handlePushNotificationToggle(e.target.checked)}
+                disabled={!pushSupported}
               />
               <span className={styles.checkboxCustom}></span>
               <div className={styles.labelContent}>
                 <strong>Push-сповіщення</strong>
-                <span>Сповіщення в браузері</span>
+                <span>
+                  {!pushSupported 
+                    ? 'Недоступно на цій платформі' 
+                    : pushPermission.denied 
+                    ? 'Сповіщення заблоковані в налаштуваннях' 
+                    : 'Сповіщення в браузері/додатку'
+                  }
+                </span>
+                {pushPermission.denied && (
+                  <span className={styles.permissionHelp}>
+                    💡 Увімкніть дозволи в налаштуваннях браузера/пристрою
+                  </span>
+                )}
               </div>
             </label>
           </div>
@@ -286,36 +292,22 @@ export const ReminderSettings: React.FC<ReminderSettingsProps> = ({
         </div>
       </div>
 
-      {/* Тестування та керування */}
+      {/* Керування налаштуваннями */}
       <div className={styles.actions}>
-        <div className={styles.testSection}>
-          <h4>🧪 Тестування нагадувань</h4>
-          <p>Перевірте, як працюють ваші налаштування</p>
-          <Button
-            variant="outline"
-            onClick={handleTestNotification}
-            disabled={!settings.enablePushNotifications}
-          >
-            Надіслати тестове сповіщення
-          </Button>
-        </div>
-
-        <div className={styles.controlButtons}>
-          <Button
-            variant="ghost"
-            onClick={handleResetSettings}
-          >
-            Скинути до типових
-          </Button>
-          
-          <Button
-            variant="primary"
-            onClick={handleSaveSettings}
-            disabled={!hasChanges}
-          >
-            {hasChanges ? 'Зберегти зміни' : 'Збережено'}
-          </Button>
-        </div>
+        <Button
+          variant="ghost"
+          onClick={handleResetSettings}
+        >
+          Скинути до типових
+        </Button>
+        
+        <Button
+          variant="primary"
+          onClick={handleSaveSettings}
+          disabled={!hasChanges}
+        >
+          {hasChanges ? 'Зберегти зміни' : 'Збережено'}
+        </Button>
       </div>
 
       {/* Поради */}

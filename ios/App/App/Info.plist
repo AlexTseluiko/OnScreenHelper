@@ -45,5 +45,19 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	
+	<!-- Дозволи для геолокації на iOS -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>OnScreen використовує вашу геолокацію для пошуку найближчих медичних закладів та надання персональних рекомендацій.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>OnScreen використовує вашу геолокацію для пошуку найближчих медичних закладів та надання персональних рекомендацій.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>OnScreen використовує вашу геолокацію для пошуку найближчих медичних закладів.</string>
+	
+	<!-- Дозволи для push-сповіщень на iOS -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

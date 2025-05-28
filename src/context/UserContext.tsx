@@ -7,10 +7,10 @@ import {
 import { Screening, ScreeningCategory } from '@/types/screening';
 import { 
   encryptMedicalData, 
-  decryptMedicalData, 
   secureDelete,
   verifyDataIntegrity,
-  anonymizeData
+  anonymizeData,
+  attemptProfileRecovery
 } from '@/utils/encryption';
 
 interface UserState {
@@ -325,59 +325,71 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     dispatch({ type: 'SET_LOADING', payload: true });
     
     try {
-      const storedData = localStorage.getItem('medicalProfile');
-      if (storedData) {
-        let profile: UserProfile;
-        
-        // Спочатку перевіряємо, чи дані зашифровані
-        try {
-          profile = decryptMedicalData(storedData);
-          
-          // Перевіряємо цілісність даних
+      // Проверяем наличие зашифрованного профиля
+      const encryptedProfile = localStorage.getItem('medicalProfile');
+      
+      if (!encryptedProfile) {
+        // Нет профиля - это нормально для нового пользователя
+        dispatch({ type: 'SET_LOADING', payload: false });
+        return;
+      }
+
+      // Пытаемся восстановить профиль
+      const profile = attemptProfileRecovery();
+      
+      if (profile) {
+        // Проверяем целостность данных если есть хеш
+        const savedHash = localStorage.getItem('profileHash');
+        if (savedHash) {
           const currentHash = verifyDataIntegrity(profile);
-          const savedHash = localStorage.getItem('profileHash');
-          
-          if (savedHash && currentHash !== savedHash) {
-            console.warn('Дані профілю можуть бути пошкоджені');
-            dispatch({ type: 'SET_ERROR', payload: 'Виявлено можливе пошкодження даних профілю' });
-            return;
-          }
-          
-          console.log('Профіль успішно розшифровано');
-        } catch (decryptError) {
-          // Якщо розшифрування не вдалося, намагаємося завантажити як незашифровані дані
-          console.log('Завантажено профіль у старому форматі, буде зашифровано при наступному збереженні');
-          
-          try {
-            profile = JSON.parse(storedData);
-            
-            // Додаємо відсутні поля для сумісності
-            if (!profile.id) {
-              profile.id = Date.now().toString();
-            }
-            if (!profile.createdAt) {
-              profile.createdAt = new Date().toISOString();
-            }
-            if (!profile.updatedAt) {
-              profile.updatedAt = new Date().toISOString();
-            }
-            
-          } catch (parseError) {
-            console.error('Не вдалося завантажити дані у жодному форматі:', parseError);
-            dispatch({ type: 'SET_ERROR', payload: 'Помилка завантаження профілю. Створіть новий профіль.' });
-            
-            // Очищуємо пошкоджені дані
-            localStorage.removeItem('medicalProfile');
-            localStorage.removeItem('profileHash');
-            return;
+          if (currentHash !== savedHash) {
+            console.warn('Данные профиля могут быть повреждены, но продолжаем загрузку');
           }
         }
         
         dispatch({ type: 'SET_PROFILE', payload: profile });
+        console.log('Профиль успешно загружен');
+      } else {
+        // Не удалось восстановить профиль - данные повреждены
+        console.warn('Обнаружены поврежденные данные, выполняется автоматическая очистка...');
+        
+        try {
+          // Очищаем поврежденные данные
+          localStorage.removeItem('medicalProfile');
+          localStorage.removeItem('profileHash');
+          localStorage.removeItem('analyticsData');
+          localStorage.removeItem('medical_app_key');
+          
+          // Устанавливаем информационное сообщение вместо ошибки
+          dispatch({ 
+            type: 'SET_ERROR', 
+            payload: 'Поврежденные данные были автоматически очищены. Создайте новый профиль.' 
+          });
+        } catch (cleanupError) {
+          console.error('Ошибка при очистке данных:', cleanupError);
+          dispatch({ 
+            type: 'SET_ERROR', 
+            payload: 'Ошибка при очистке поврежденных данных. Попробуйте очистить localStorage вручную.' 
+          });
+        }
       }
     } catch (error) {
-      console.error('Загальна помилка завантаження профілю:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Помилка завантаження профілю' });
+      console.error('Общая ошибка загрузки профиля:', error);
+      
+      // В случае критической ошибки также пытаемся очистить данные
+      try {
+        localStorage.removeItem('medicalProfile');
+        localStorage.removeItem('profileHash');
+        localStorage.removeItem('analyticsData');
+        localStorage.removeItem('medical_app_key');
+        
+        dispatch({ 
+          type: 'SET_ERROR', 
+          payload: 'Произошла критическая ошибка. Данные очищены. Создайте новый профиль.' 
+        });
+      } catch {
+        dispatch({ type: 'SET_ERROR', payload: 'Критическая ошибка загрузки профиля' });
+      }
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -426,7 +438,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     secureDelete('analyticsData');
     
     // Видаляємо ключ шифрування
-    sessionStorage.removeItem('medical_app_key');
+    localStorage.removeItem('medical_app_key');
     
     dispatch({ type: 'SET_PROFILE', payload: null });
     
@@ -492,10 +504,22 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [state.profile?.dateOfBirth]);
 
   const clearCorruptedData = useCallback(() => {
-    // Очищуємо профіль з контексту
-    dispatch({ type: 'SET_PROFILE', payload: null });
-    
-    console.log('Профіль та всі пов\'язані дані безпечно видалені');
+    try {
+      // Очищуємо всі дані профілю
+      localStorage.removeItem('medicalProfile');
+      localStorage.removeItem('profileHash');
+      localStorage.removeItem('analyticsData');
+      localStorage.removeItem('medical_app_key');
+      
+      // Очищуємо профіль з контексту
+      dispatch({ type: 'SET_PROFILE', payload: null });
+      dispatch({ type: 'SET_ERROR', payload: null });
+      
+      console.log('Всі дані профілю очищені успішно');
+    } catch (error) {
+      console.error('Помилка при очищенні даних:', error);
+      dispatch({ type: 'SET_ERROR', payload: 'Помилка очищення даних' });
+    }
   }, []);
 
   const value: UserContextValue = {

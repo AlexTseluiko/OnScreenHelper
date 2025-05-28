@@ -1,18 +1,20 @@
 import CryptoJS from 'crypto-js';
 
-// Генерування ключа на основі браузера та часу
+// Генерування ключа на основі браузера
 const generateEncryptionKey = (): string => {
-  const browserInfo = navigator.userAgent + navigator.language;
-  const timestamp = Date.now().toString();
-  return CryptoJS.SHA256(browserInfo + timestamp).toString();
+  // Используем стабильную информацию о браузере и устройстве
+  const browserInfo = navigator.userAgent + navigator.language + screen.width + screen.height;
+  // Добавляем статичную соль для большей безопасности
+  const staticSalt = 'OnScreenH_Medical_App_2024';
+  return CryptoJS.SHA256(browserInfo + staticSalt).toString();
 };
 
 // Отримання або створення ключа шифрування
 const getEncryptionKey = (): string => {
-  let key = sessionStorage.getItem('medical_app_key');
+  let key = localStorage.getItem('medical_app_key');
   if (!key) {
     key = generateEncryptionKey();
-    sessionStorage.setItem('medical_app_key', key);
+    localStorage.setItem('medical_app_key', key);
   }
   return key;
 };
@@ -195,6 +197,39 @@ export const cleanupCorruptedData = (): void => {
     // Очищення завершено (без console.log)
   } catch (error) {
     // Silent error handling для production
+  }
+};
+
+/**
+ * Спроба відновлення профілю з резервної копії
+ */
+export const attemptProfileRecovery = (): any | null => {
+  const profileData = localStorage.getItem('medicalProfile');
+  if (!profileData) return null;
+
+  // Спочатку спробуємо як зашифровані дані
+  try {
+    return decryptMedicalData(profileData);
+  } catch {
+    // Потім як незашифровані JSON
+    try {
+      const profile = JSON.parse(profileData);
+      
+      // Додаємо відсутні поля для сумісності
+      if (!profile.id) {
+        profile.id = Date.now().toString();
+      }
+      if (!profile.createdAt) {
+        profile.createdAt = new Date().toISOString();
+      }
+      if (!profile.updatedAt) {
+        profile.updatedAt = new Date().toISOString();
+      }
+      
+      return profile;
+    } catch {
+      return null;
+    }
   }
 };
 

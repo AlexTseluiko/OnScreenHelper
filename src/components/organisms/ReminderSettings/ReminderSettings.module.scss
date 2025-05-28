@@ -141,6 +141,13 @@
   }
 }
 
+.permissionHelp {
+  color: var(--warning) !important;
+  font-size: 0.75rem !important;
+  font-style: italic;
+  margin-top: var(--spacing-xs);
+}
+
 .emailSection {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md);
@@ -217,33 +224,13 @@
 }
 
 .actions {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--spacing-xl);
-  align-items: start;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
   padding: var(--spacing-xl);
   background: var(--gray-25);
   border-radius: var(--radius-xl);
   margin-bottom: var(--spacing-xl);
-}
-
-.testSection {
-  h4 {
-    color: var(--primary-dark);
-    margin-bottom: var(--spacing-sm);
-    font-size: 1.125rem;
-  }
-
-  p {
-    color: var(--gray-600);
-    margin-bottom: var(--spacing-md);
-    font-size: 0.875rem;
-  }
-}
-
-.controlButtons {
-  display: flex;
-  gap: var(--spacing-md);
   flex-wrap: wrap;
 }
 
@@ -304,15 +291,11 @@
   }
 
   .actions {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-  }
-
-  .controlButtons {
-    justify-content: stretch;
+    flex-direction: column;
+    align-items: stretch;
     
     button {
-      flex: 1;
+      width: 100%;
     }
   }
 

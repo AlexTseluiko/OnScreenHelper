@@ -4,9 +4,7 @@ import { useScreening } from '@/context/ScreeningContext';
 import { ProfileForm } from '@/components/organisms/ProfileForm/ProfileForm';
 import { Button } from '@/components/atoms/Button/Button';
 import { MedicalDisclaimer } from '@/components/atoms/MedicalDisclaimer/MedicalDisclaimer';
-import { PersonalizedRecommendation } from '@/types/user';
 import { exportUserData, downloadUserData, generateDataReport, logDataExport } from '@/utils/dataExport';
-import { cleanupCorruptedData } from '@/utils/encryption';
 import styles from './ProfilePage.module.scss';
 
 export const ProfilePage: React.FC = () => {
@@ -59,26 +57,6 @@ export const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleCleanupData = () => {
-    if (window.confirm('Очистити пошкоджені дані в локальному сховищі? Це може допомогти виправити помилки завантаження.')) {
-      try {
-        cleanupCorruptedData();
-        alert('Очищення завершено! Перезавантажте сторінку для застосування змін.');
-      } catch (error) {
-        console.error('Помилка очищення:', error);
-        alert('Помилка при очищенні даних.');
-      }
-    }
-  };
-
-  const getPriorityIcon = (priority: PersonalizedRecommendation['priority']) => {
-    switch (priority) {
-      case 'висока': return '🔴';
-      case 'середня': return '🟡';
-      case 'низька': return '🟢';
-    }
-  };
-
   // Генеруємо рекомендації коли профіль створений та скринінги завантажені
   useEffect(() => {
     if (userState.profile && screeningState.screenings.length > 0) {
@@ -100,12 +78,6 @@ export const ProfilePage: React.FC = () => {
               onClick={() => window.location.reload()}
             >
               🔄 Перезавантажити
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={handleCleanupData}
-            >
-              🧹 Очистити дані
             </Button>
           </div>
         </div>
@@ -236,12 +208,6 @@ export const ProfilePage: React.FC = () => {
           </Button>
           <Button
             variant="ghost"
-            onClick={handleCleanupData}
-          >
-            🧹 Очистити дані
-          </Button>
-          <Button
-            variant="ghost"
             onClick={handleDeleteProfile}
             className={styles.deleteButton}
           >
@@ -278,7 +244,7 @@ export const ProfilePage: React.FC = () => {
                 <div className={styles.recommendationHeader}>
                   <div className={styles.priorityBadge}>
                     <span className={styles.priorityIcon}>
-                      {getPriorityIcon(recommendation.priority)}
+                      {recommendation.priority === 'висока' ? '🔴' : recommendation.priority === 'середня' ? '🟡' : '🟢'}
                     </span>
                     <span className={styles.priorityText}>
                       {recommendation.priority} пріоритет
@@ -430,4 +396,4 @@ export const ProfilePage: React.FC = () => {
       </div>
     </div>
   );
-}; 
+};
