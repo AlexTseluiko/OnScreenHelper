@@ -1,23 +1,102 @@
 {
-  "name": "MedHelper - Медичний помічник України",
-  "short_name": "MedHelper",
-  "description": "Медичні скринінгові програми та пошук медичних закладів",
-  "theme_color": "#2563eb",
-  "background_color": "#fcfcfd",
-  "display": "standalone",
-  "orientation": "portrait-primary",
-  "scope": "/",
-  "start_url": "/",
+  "name": "OnScreen - Медичні Скринінги",
+  "short_name": "OnScreen",
+  "description": "Комплексна система медичних скринінгів для вашого здоров'я",
+  "version": "2.1.0",
   "icons": [
     {
-      "src": "/medical-icon.svg",
-      "sizes": "any",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg", 
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
-  "categories": ["medical", "health", "lifestyle"],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#3b82f6",
+  "background_color": "#f8fafc",
+  "scope": "/",
+  "categories": ["health", "medical", "lifestyle"],
   "lang": "uk",
   "dir": "ltr",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"]
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "shortcuts": [
+    {
+      "name": "Скринінги",
+      "short_name": "Скринінги",
+      "description": "Переглянути медичні скринінги",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Профіль",
+      "short_name": "Профіль",
+      "description": "Мій медичний профіль",
+      "url": "/profile",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Календар",
+      "short_name": "Календар",
+      "description": "Календар здоров'я",
+      "url": "/calendar",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "application/json": [".json"],
+        "text/csv": [".csv"]
+      }
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+onscreen",
+      "url": "/?protocol=%s"
+    }
+  ]
 } 

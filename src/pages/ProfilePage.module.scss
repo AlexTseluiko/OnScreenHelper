@@ -30,6 +30,84 @@
   }
 }
 
+// Error Card
+.errorCard {
+  background: linear-gradient(135deg, var(--error-light), white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  margin: var(--spacing-2xl) auto;
+  border: 2px solid var(--error-color);
+  
+  h2 {
+    margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+    color: var(--error-dark);
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  p {
+    color: var(--gray-700);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+  }
+}
+
+.errorIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.errorActions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+// Loading Card
+.loadingCard {
+  background: linear-gradient(135deg, var(--primary-light), white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  margin: var(--spacing-2xl) auto;
+  
+  h2 {
+    margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+    color: var(--gray-800);
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  p {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.loadingIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.5; 
+    transform: scale(1.05);
+  }
+}
+
 .welcomeIcon {
   font-size: 4rem;
   margin-bottom: var(--spacing-lg);
@@ -131,13 +209,66 @@
 .profileActions {
   display: flex;
   gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  align-items: center;
+  
+  // Для більших екранів - горизонтальне розташування
+  @media (min-width: 1024px) {
+    flex-wrap: nowrap;
+    gap: var(--spacing-md);
+  }
+  
+  // Для планшетів - змішане розташування
+  @media (min-width: 768px) and (max-width: 1023px) {
+    justify-content: center;
+    gap: var(--spacing-sm);
+    
+    button {
+      font-size: 0.9rem;
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+  }
+  
+  // Для мобільних - вертикальне розташування
+  @media (max-width: 767px) {
+    width: 100%;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    
+    button {
+      width: 100%;
+      justify-content: center;
+      font-size: 1rem;
+      padding: var(--spacing-md) var(--spacing-lg);
+      min-height: 48px; // Мінімальний розмір для дотику
+      
+      // Збільшуємо іконки на мобільних
+      &::before {
+        font-size: 1.2em;
+        margin-right: var(--spacing-sm);
+      }
+    }
+  }
 }
 
 .deleteButton {
   color: var(--error);
+  border: 2px solid var(--error);
+  background: transparent;
   
   &:hover {
     background: rgba(239, 68, 68, 0.1);
+    color: var(--error-dark);
+    border-color: var(--error-dark);
+  }
+  
+  // Мобільна оптимізація
+  @media (max-width: 767px) {
+    background: rgba(239, 68, 68, 0.05);
+    
+    &:hover, &:active {
+      background: rgba(239, 68, 68, 0.15);
+    }
   }
 }
 
@@ -428,13 +559,32 @@
   
   .profileHeader {
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
     text-align: center;
+    padding: var(--spacing-lg);
   }
   
   .profileInfo {
     flex-direction: column;
     text-align: center;
+    gap: var(--spacing-md);
+  }
+  
+  .avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+  
+  .basicInfo {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  // Кнопки вже оптимізовані вище, тут додаємо тільки spacing
+  .profileActions {
+    margin-top: var(--spacing-lg);
   }
   
   .recommendationsList {
@@ -443,6 +593,7 @@
   
   .recommendationFooter {
     grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
   }
   
   .historyGrid, .preferencesGrid {
@@ -456,15 +607,91 @@
   .benefit {
     flex-direction: column;
     text-align: center;
+    padding: var(--spacing-md);
   }
   
-  .welcomeCard {
+  .welcomeCard, .errorCard, .loadingCard {
     margin: var(--spacing-lg) auto;
     padding: var(--spacing-xl);
     
-    h1 {
+    h1, h2 {
       font-size: 1.5rem;
     }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .errorActions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    
+    button {
+      width: 100%;
+      min-height: 48px;
+    }
+  }
+}
+
+// Додаткові оптимізації для дуже маленьких екранів
+@media (max-width: 480px) {
+  .profilePage {
+    padding: var(--spacing-md);
+  }
+  
+  .profileHeader {
+    padding: var(--spacing-md);
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+  }
+  
+  .basicInfo h1 {
+    font-size: 1.3rem;
+  }
+  
+  .ageGender {
+    font-size: 1rem;
+  }
+  
+  .profileActions button {
+    font-size: 0.95rem;
+    padding: var(--spacing-md);
+  }
+  
+  .recommendationCard {
+    padding: var(--spacing-md);
+  }
+  
+  .recommendationTitle {
+    font-size: 1.1rem;
+  }
+}
+
+// Оптимізація для планшетів у landscape режимі
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .profileHeader {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .profileActions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 400px;
+    
+    button {
+      min-width: 120px;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .recommendationsList {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -486,4 +713,122 @@
 
 .recommendationsSection, .medicalHistorySection, .preferencesSection {
   animation: fadeInUp var(--transition-normal) ease-out;
+}
+
+// Додаткові оптимізації для проміжних розмірів екранів
+@media (min-width: 481px) and (max-width: 640px) {
+  .profileActions {
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    
+    button {
+      flex: 1;
+      min-width: 0;
+      font-size: 0.9rem;
+      padding: var(--spacing-sm) var(--spacing-md);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+// Оптимізація для великих планшетів
+@media (min-width: 641px) and (max-width: 1023px) {
+  .profileActions {
+    justify-content: center;
+    gap: var(--spacing-md);
+    
+    button {
+      min-width: 140px;
+      font-size: 0.9rem;
+      padding: var(--spacing-sm) var(--spacing-lg);
+    }
+  }
+}
+
+// Оптимізація для дуже великих екранів
+@media (min-width: 1440px) {
+  .profileActions {
+    gap: var(--spacing-lg);
+    
+    button {
+      font-size: 1.1rem;
+      padding: var(--spacing-md) var(--spacing-xl);
+      min-width: 160px;
+    }
+  }
+}
+
+// Hover ефекти для desktop пристроїв
+@media (hover: hover) and (pointer: fine) {
+  .profileActions button {
+    transition: all var(--transition-fast) ease-in-out;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Touch оптимізація для всіх пристроїв
+@media (pointer: coarse) {
+  .profileActions button {
+    min-height: 48px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    
+    // Збільшуємо зону натискання
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      z-index: -1;
+    }
+  }
+  
+  .deleteButton {
+    min-height: 48px;
+    font-weight: 600;
+  }
+}
+
+// Accessibility покращення
+.profileActions button {
+  position: relative;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// Покращення для RTL підтримки
+[dir="rtl"] .profileActions {
+  direction: rtl;
+  
+  button {
+    &::before {
+      margin-right: 0;
+      margin-left: var(--spacing-sm);
+    }
+  }
 } 

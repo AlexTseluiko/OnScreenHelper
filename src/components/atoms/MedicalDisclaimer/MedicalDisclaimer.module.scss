@@ -1,0 +1,98 @@
+@use '../../../styles/responsive.scss' as *;
+
+.disclaimer {
+  background: var(--warning-light, #fef3c7);
+  border: 1px solid var(--warning-color, #f59e0b);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  
+  @include mobile-only {
+    padding: 12px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.icon {
+  font-size: 18px;
+  
+  @include mobile-only {
+    font-size: 16px;
+  }
+}
+
+.title {
+  font-weight: 600;
+  color: var(--warning-dark, #d97706);
+  font-size: 16px;
+  
+  @include mobile-only {
+    font-size: 14px;
+  }
+}
+
+.text {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--gray-700, #374151);
+  font-size: 14px;
+  
+  @include mobile-only {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+.additionalInfo {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--warning-color, #f59e0b);
+}
+
+.sourceInfo,
+.validationInfo {
+  margin: 6px 0;
+  font-size: 12px;
+  color: var(--gray-600, #6b7280);
+  line-height: 1.4;
+  
+  @include mobile-only {
+    font-size: 11px;
+  }
+}
+
+// Варіанти для різних типів застережень
+.disclaimer[data-type="emergency"] {
+  background: var(--error-light, #fef2f2);
+  border-color: var(--error-color, #ef4444);
+  
+  .title {
+    color: var(--error-dark, #dc2626);
+  }
+}
+
+.disclaimer[data-type="screening"] {
+  background: var(--primary-light, #eff6ff);
+  border-color: var(--primary-color, #2563eb);
+  
+  .title {
+    color: var(--primary-dark, #1d4ed8);
+  }
+}
+
+.disclaimer[data-type="results"] {
+  background: var(--success-light, #f0fdf4);
+  border-color: var(--success-color, #10b981);
+  
+  .title {
+    color: var(--success-dark, #047857);
+  }
+} 

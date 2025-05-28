@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MedicalDisclaimer } from '@/components/atoms/MedicalDisclaimer/MedicalDisclaimer';
 import styles from './EducationPage.module.scss';
 
 interface EducationCategory {
@@ -247,6 +248,9 @@ export const EducationPage: React.FC = () => {
         <h1>📚 Освітній центр</h1>
         <p>Достовірна медична інформація для вашого здоров'я</p>
       </div>
+
+      {/* Медичні застереження */}
+      <MedicalDisclaimer type="general" />
 
       <div className={styles.tabs}>
         {categories.map((category) => (

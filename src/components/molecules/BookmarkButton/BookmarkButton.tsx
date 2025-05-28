@@ -25,7 +25,8 @@ const saveBookmarks = (bookmarks: string[]) => {
   try {
     localStorage.setItem(BOOKMARKS_STORAGE_KEY, JSON.stringify(bookmarks));
   } catch (error) {
-    console.warn('Не вдалося зберегти закладки:', error);
+    // Silent error handling для production
+    // В реальному проекті можна відправити error на сервер моніторингу
   }
 };
 

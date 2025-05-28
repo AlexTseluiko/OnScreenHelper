@@ -195,7 +195,7 @@ export const HealthCalendar: React.FC<HealthCalendarProps> = ({
             Наступний →
           </Button>
         </div>
-        <Button variant="outline" onClick={handleToday}>
+        <Button variant="outline" onClick={handleToday} className={styles.todayButton}>
           Сьогодні
         </Button>
       </div>

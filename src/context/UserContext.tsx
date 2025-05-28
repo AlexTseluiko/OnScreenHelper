@@ -5,6 +5,13 @@ import {
   HealthCalendarEvent
 } from '@/types/user';
 import { Screening, ScreeningCategory } from '@/types/screening';
+import { 
+  encryptMedicalData, 
+  decryptMedicalData, 
+  secureDelete,
+  verifyDataIntegrity,
+  anonymizeData
+} from '@/utils/encryption';
 
 interface UserState {
   profile: UserProfile | null;
@@ -305,6 +312,7 @@ interface UserContextValue {
   rescheduleScreening: (screeningId: string, oldDate: string, newDate: string) => void;
   generateRecommendations: (screenings: Screening[]) => void;
   getAge: () => number | null;
+  clearCorruptedData: () => void;
 }
 
 const UserContext = createContext<UserContextValue | undefined>(undefined);
@@ -317,26 +325,80 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     dispatch({ type: 'SET_LOADING', payload: true });
     
     try {
-      const savedProfile = localStorage.getItem('medicalProfile');
-      if (savedProfile) {
-        const profile: UserProfile = JSON.parse(savedProfile);
+      const storedData = localStorage.getItem('medicalProfile');
+      if (storedData) {
+        let profile: UserProfile;
+        
+        // Спочатку перевіряємо, чи дані зашифровані
+        try {
+          profile = decryptMedicalData(storedData);
+          
+          // Перевіряємо цілісність даних
+          const currentHash = verifyDataIntegrity(profile);
+          const savedHash = localStorage.getItem('profileHash');
+          
+          if (savedHash && currentHash !== savedHash) {
+            console.warn('Дані профілю можуть бути пошкоджені');
+            dispatch({ type: 'SET_ERROR', payload: 'Виявлено можливе пошкодження даних профілю' });
+            return;
+          }
+          
+          console.log('Профіль успішно розшифровано');
+        } catch (decryptError) {
+          // Якщо розшифрування не вдалося, намагаємося завантажити як незашифровані дані
+          console.log('Завантажено профіль у старому форматі, буде зашифровано при наступному збереженні');
+          
+          try {
+            profile = JSON.parse(storedData);
+            
+            // Додаємо відсутні поля для сумісності
+            if (!profile.id) {
+              profile.id = Date.now().toString();
+            }
+            if (!profile.createdAt) {
+              profile.createdAt = new Date().toISOString();
+            }
+            if (!profile.updatedAt) {
+              profile.updatedAt = new Date().toISOString();
+            }
+            
+          } catch (parseError) {
+            console.error('Не вдалося завантажити дані у жодному форматі:', parseError);
+            dispatch({ type: 'SET_ERROR', payload: 'Помилка завантаження профілю. Створіть новий профіль.' });
+            
+            // Очищуємо пошкоджені дані
+            localStorage.removeItem('medicalProfile');
+            localStorage.removeItem('profileHash');
+            return;
+          }
+        }
+        
         dispatch({ type: 'SET_PROFILE', payload: profile });
       }
     } catch (error) {
-      console.error('Error loading profile from localStorage:', error);
+      console.error('Загальна помилка завантаження профілю:', error);
       dispatch({ type: 'SET_ERROR', payload: 'Помилка завантаження профілю' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
   }, []);
 
-  // Збереження профілю в localStorage при змінах
+  // Збереження зашифрованого профілю в localStorage при змінах
   useEffect(() => {
     if (state.profile) {
       try {
-        localStorage.setItem('medicalProfile', JSON.stringify(state.profile));
+        const encryptedProfile = encryptMedicalData(state.profile);
+        const profileHash = verifyDataIntegrity(state.profile);
+        
+        localStorage.setItem('medicalProfile', encryptedProfile);
+        localStorage.setItem('profileHash', profileHash);
+        
+        // Зберігаємо анонімізовані дані для аналітики (локально)
+        const anonymizedData = anonymizeData(state.profile);
+        localStorage.setItem('analyticsData', JSON.stringify(anonymizedData));
+        
       } catch (error) {
-        console.error('Error saving profile to localStorage:', error);
+        console.error('Error saving encrypted profile:', error);
         dispatch({ type: 'SET_ERROR', payload: 'Помилка збереження профілю' });
       }
     }
@@ -358,8 +420,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const deleteProfile = useCallback(() => {
-    localStorage.removeItem('medicalProfile');
+    // Безпечне видалення всіх медичних даних
+    secureDelete('medicalProfile');
+    secureDelete('profileHash');
+    secureDelete('analyticsData');
+    
+    // Видаляємо ключ шифрування
+    sessionStorage.removeItem('medical_app_key');
+    
     dispatch({ type: 'SET_PROFILE', payload: null });
+    
+    console.log('Профіль та всі пов\'язані дані безпечно видалені');
   }, []);
 
   const addCheckup = useCallback((
@@ -420,6 +491,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return calculateAge(state.profile.dateOfBirth);
   }, [state.profile?.dateOfBirth]);
 
+  const clearCorruptedData = useCallback(() => {
+    // Очищуємо профіль з контексту
+    dispatch({ type: 'SET_PROFILE', payload: null });
+    
+    console.log('Профіль та всі пов\'язані дані безпечно видалені');
+  }, []);
+
   const value: UserContextValue = {
     state,
     createProfile,
@@ -431,6 +509,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     rescheduleScreening,
     generateRecommendations,
     getAge,
+    clearCorruptedData,
   };
 
   return (

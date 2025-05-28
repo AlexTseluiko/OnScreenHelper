@@ -18,6 +18,7 @@ import AdBanner from './components/atoms/AdBanner/AdBanner';
 import styles from './App.module.scss';
 import { Button } from './components/atoms/Button/Button';
 import { Modal } from './components/organisms/Modal/Modal';
+import { ErrorBoundary } from './components/atoms/ErrorBoundary/ErrorBoundary';
 
 const LoadingSpinner = () => (
   <div className={styles.loading}>
@@ -245,9 +246,11 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <UserProvider>
-      <AppContent />
-    </UserProvider>
+    <ErrorBoundary>
+      <UserProvider>
+        <AppContent />
+      </UserProvider>
+    </ErrorBoundary>
   );
 };
 

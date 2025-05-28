@@ -11,6 +11,19 @@
   padding-right: env(safe-area-inset-right);
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  
+  // Компенсація для фіксованої навігації на мобільних
+  @include mobile-only {
+    padding-top: calc(env(safe-area-inset-top) + 80px); // Висота навігації + безпечна зона
+  }
+  
+  @include mobile-xs {
+    padding-top: calc(env(safe-area-inset-top) + 70px);
+  }
+  
+  @include mobile-landscape {
+    padding-top: calc(env(safe-area-inset-top) + 60px);
+  }
 }
 
 main {
@@ -22,10 +35,13 @@ main {
   
   @include mobile-only {
     padding: var(--spacing-xl) var(--spacing-md) var(--spacing-md) var(--spacing-md);
+    // Менше верхнього padding через фіксовану навігацію
+    padding-top: var(--spacing-lg);
   }
   
   @include mobile-xs {
     padding: var(--spacing-lg) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+    padding-top: var(--spacing-md);
   }
 }
 
