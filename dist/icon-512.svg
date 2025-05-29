@@ -1,28 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A90E2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5BA7F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A90E2;stop-opacity:1" />
     </linearGradient>
   </defs>
   
-  <!-- Background circle -->
-  <circle cx="256" cy="256" r="240" fill="url(#grad2)" stroke="#1e40af" stroke-width="8"/>
+  <!-- Rounded rectangle background -->
+  <rect width="512" height="512" rx="120" ry="120" fill="url(#bgGradient)"/>
   
-  <!-- Medical cross -->
-  <rect x="224" y="128" width="64" height="256" fill="white" rx="12"/>
-  <rect x="128" y="224" width="256" height="64" fill="white" rx="12"/>
+  <!-- Map background -->
+  <g transform="translate(90, 300)">
+    <polygon points="0,120 60,60 150,40 220,80 280,30 332,70 332,180 0,180" fill="rgba(255,255,255,0.9)"/>
+    <polygon points="60,60 150,40 220,80 280,30 332,70 332,120 280,80 220,120 150,90 60,110" fill="rgba(255,255,255,0.7)"/>
+  </g>
   
-  <!-- Heart icon overlay -->
-  <path d="M256 380 L224 348 C200 324 188 300 188 276 C188 252 208 232 232 232 C244 232 256 238 256 250 C256 238 268 232 280 232 C304 232 324 252 324 276 C324 300 312 324 288 348 L256 380 Z" fill="#ef4444" opacity="0.8"/>
-  
-  <!-- Small stethoscope icon -->
-  <circle cx="350" cy="162" r="32" fill="white" opacity="0.9"/>
-  <circle cx="350" cy="162" r="22" fill="#3b82f6"/>
-  <path d="M330 182 Q350 198 370 182" stroke="white" stroke-width="8" fill="none"/>
-  
-  <!-- Additional medical symbols -->
-  <circle cx="400" cy="400" r="16" fill="white" opacity="0.7"/>
-  <circle cx="112" cy="400" r="16" fill="white" opacity="0.7"/>
-  <circle cx="400" cy="112" r="16" fill="white" opacity="0.7"/>
+  <!-- Location pin -->
+  <g transform="translate(200, 140)">
+    <!-- Pin shadow -->
+    <ellipse cx="56" cy="180" rx="20" ry="8" fill="rgba(0,0,0,0.1)"/>
+    
+    <!-- Pin body -->
+    <path d="M56 40 C20 40 0 65 0 95 C0 125 56 180 56 180 C56 180 112 125 112 95 C112 65 92 40 56 40 Z" fill="white"/>
+    
+    <!-- Pin inner circle -->
+    <circle cx="56" cy="95" r="35" fill="url(#iconGradient)"/>
+    
+    <!-- Medical cross -->
+    <g transform="translate(41, 80)">
+      <!-- Horizontal bar -->
+      <rect x="0" y="10" width="30" height="10" rx="2" ry="2" fill="white"/>
+      <!-- Vertical bar -->
+      <rect x="10" y="0" width="10" height="30" rx="2" ry="2" fill="white"/>
+    </g>
+  </g>
 </svg>
