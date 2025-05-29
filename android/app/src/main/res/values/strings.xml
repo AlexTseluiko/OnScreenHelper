@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Медичні Скринінги</string>
-    <string name="title_activity_main">Медичні Скринінги</string>
-    <string name="package_name">com.medicalscreening.app</string>
-    <string name="custom_url_scheme">com.medicalscreening.app</string>
-    <string name="app_description">Додаток для пошуку та планування медичних скринінгів</string>
+    <string name="app_name">OnScreen</string>
+    <string name="title_activity_main">OnScreen</string>
+    <string name="package_name">ua.onscreen.app</string>
+    <string name="custom_url_scheme">ua.onscreen.app</string>
+    <string name="app_description">OnScreen - медичні скринінги та карта медичних закладів</string>
 </resources>

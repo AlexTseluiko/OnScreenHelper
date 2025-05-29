@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'ua.medhelper.app',
-  appName: 'MedHelper',
+  appId: 'ua.onscreen.app',
+  appName: 'OnScreen',
   webDir: 'dist',
   server: {
     androidScheme: 'https'
@@ -45,7 +45,7 @@ const config: CapacitorConfig = {
     webContentsDebuggingEnabled: false
   },
   ios: {
-    scheme: 'MedHelper',
+    scheme: 'OnScreen',
     contentInset: 'automatic',
     webContentsDebuggingEnabled: false
   }
